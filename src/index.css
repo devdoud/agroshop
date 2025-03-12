@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --font-montserrat: Montserrat, sans-serif;
 
-:root {
+  /* --color-primary: #1B5E20; */
+  --color-primary: #1B4D3E;
+  --color-secondary: #FFD700;
+  --color-tertiary: #1E1E1E;
+}
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -68,4 +76,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
