@@ -100,43 +100,43 @@ const handleChange = (e) => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
         <div className="h-screen bg-primary"></div>
         <div className="h-screen">
-          <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center mb-4 mt-16'>
-            <Skeleton width={350} />
-          </h1>
-          <div className="sm:w-2/4 w-3/4 h-full mx-auto">
+          <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
+            <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center mb-4 mt-16'>
+                <Skeleton width={350} height={20} />
+            </h1>
             <form className='flex flex-col gap-8'>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>
               <div className="flex flex-col justify-start align-start">
-                <Skeleton height={20} width={80} />
+                <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
               </div>    
-              <div className="mt-8">
+              <div className="mt-4">
                 <Skeleton height={40} />
                 <div className="flex align-center justify-center mt-4 gap-1">
-                    <Skeleton height={20} width={350} />
-                    <Skeleton height={20} width={90} />
+                    <Skeleton height={12} width={350} />
+                    <Skeleton height={12} width={90} />
               </div> 
               </div>
             </form>
@@ -147,170 +147,166 @@ const handleChange = (e) => {
   }
 // ceci est le rendu de la page d'inscription
     return (
-    <div>
-        {/* <h1 className='font-bold text-3xl text-tertiary font-montserrat'>Inscription</h1>
-        <p className='font-medium font-montserrat text-2xl text-primary'>hello everyone here, i'm sure everything is very God</p>
-        <p className='font-medium text-secondary'>This to text the third color</p> */}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6">
-            <div className="h-full bg-primary"></div>
-            <div className="h-full">
-                <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center mb-4 mt-16'>Inscription Page</h1>
-                <div className="sm:w-2/4 w-3/4 h-screen mx-auto">
-                    <form action="" onSubmit={handleSubmit} className='flex flex-col gap-8'>
-                        {errorMessage && <p className="text-red-500 text-xs mt-1">{errorMessage}</p>}
-                        <div className="flex flex-col justify-start align-start">
-                            <label htmlFor="nom" className="block text-sm font-semibold text-tertiary font-montserrat">Nom <span className="text-red-500 font-semibold">*</span></label>
-                            {isSubmitting ? 
-                                (<Skeleton height={40} /> )
-                                :  (
-                                    <input 
-                                        type="text" 
-                                        name="nom" 
-                                        id="nom" 
-                                        placeholder='Agro' 
-                                        value={formData.nom}
-                                        onChange={handleChange}
-                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.nom ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                    />
-                                )
-                            }
-                            {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
-                        </div>
-                        <div className="flex flex-col justify-start align-start">
-                            <label htmlFor="prenom" className="block text-sm font-semibold text-tertiary font-montserrat">Prénom <span className="text-red-500 font-semibold">*</span></label>
-                            {isSubmitting ?
-                                (<Skeleton height={40} /> )
-                                : (
-                                    <input 
-                                    type="text" 
-                                    name="prenom" 
-                                    id="prenom" 
-                                    placeholder='shop' 
-                                    value={formData.prenom}
-                                    onChange={handleChange}
-                                    className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.prenom ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                />
-                                )
-                            }
-                            {errors.prenom && <p className="text-red-500 text-xs mt-1">{errors.prenom}</p>}
-                        </div>
-                        <div className="flex flex-col justify-start align-start">
-                            <label htmlFor="organisation" className="block text-sm font-semibold text-tertiary font-montserrat">Nom de votre organisation <span className="text-red-500 font-semibold">*</span></label>
-                            {isSubmitting ?
-                                (<Skeleton height={40} /> )
-                                : (
-                                    <input 
-                                        type="text" 
-                                        name="organisation" 
-                                        id="organisation" 
-                                        placeholder='Agroshop'
-                                        value={formData.organisation}
-                                        onChange={handleChange}
-                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.organisation ? 'border-red-500' : 'border-gray-300'} rounded-md`} 
-                                    />
-                                )
-                            }
-                            {errors.organisation && <p className="text-red-500 text-xs mt-1">{errors.organisation}</p>}
-                        </div>
-                        <div className="flex flex-col justify-start align-start">
-                            <label htmlFor="email" className="block text-sm font-semibold text-tertiary font-montserrat">Adresse mail <span className="text-red-500">*</span></label>
-                            {isSubmitting ?
-                                (<Skeleton height={40} /> )
-                                : (
-                                    <input 
-                                        type="email" 
-                                        name="email" 
-                                        id="email" 
-                                        placeholder='Adedev@gmail.com'
-                                        value={formData.email}
-                                        onChange={handleChange} 
-                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                    />
-                                )
-                            }
-                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                        </div>
-                        <div className="">
-                            <label htmlFor="phone" className="block text-sm font-semibold text-tertiary font-montserrat">Telephone <span className="text-red-500">*</span></label>
-                            <div className="flex flex-col">
-                                <div className="flex align-center justify-center mt-1">
-                                {
-                                    isSubmitting ? (<Skeleton height={40} width={250} />)
-                                    : (
-                                        <PhoneInput
-                                        country={'bj'}
-                                        value={formData.phone}
-                                        onChange={handlePhoneChange}
-                                        inputProps={{
-                                          name: 'phone',
-                                          required: true,
-                                          autoFocus: true,
-                                          className: `sm:h-12 h-10 sm:pl-12 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md`
-                                        }}
-                                      />
+        <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 h-full">
+                <div className="h-screen bg-primary"></div>
+                <div className="h-screen">
+                    <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
+                        <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center'>Inscription Page</h1>
+                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-8 mt-8'>
+                            {errorMessage && <p className="text-red-500 text-xs mt-1">{errorMessage}</p>}
+                            <div className="flex flex-col justify-start align-start">
+                                <label htmlFor="nom" className="block text-sm font-semibold text-tertiary font-montserrat">Nom <span className="text-red-500 font-semibold">*</span></label>
+                                {isSubmitting ? 
+                                    (<Skeleton height={40} /> )
+                                    :  (
+                                        <input 
+                                            type="text" 
+                                            name="nom" 
+                                            id="nom" 
+                                            placeholder='Agro' 
+                                            value={formData.nom}
+                                            onChange={handleChange}
+                                            className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.nom ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                        />
                                     )
                                 }
+                                {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
                             </div>
-                            {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                        </div>
-                        </div>
-                        <div className="">
-                            <label htmlFor="compte" className="block text-sm font-semibold text-tertiary font-montserrat">Type de compte <span className="text-red-500 font-semibold">*</span></label>
-                            {isSubmitting ?
-                                (<Skeleton height={40} /> )
-                                : (
-                                    <select 
-                                        name="compte" 
-                                        id="compte" 
-                                        value={formData.compte}
-                                        onChange={handleChange}
-                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                    >
-                                        <option value="coorperative">Coorperative</option>
-                                        <option value="industrie">Industrie</option>
-                                </select>
-                                )
-                            }
-                            {errors.compte && <p className="text-red-500 text-xs mt-1">{errors.compte}</p>}
-                        </div>
-                        <div className="">
-                            <label htmlFor="domaine" className="block text-sm font-semibold text-tertiary font-montserrat">Domaine d'activite <span className="text-red-500 font'semibold">*</span></label>
-                            {isSubmitting ?
-                                (<Skeleton height={40} /> )
-                                : (
-                                    <input 
+                            <div className="flex flex-col justify-start align-start">
+                                <label htmlFor="prenom" className="block text-sm font-semibold text-tertiary font-montserrat">Prénom <span className="text-red-500 font-semibold">*</span></label>
+                                {isSubmitting ?
+                                    (<Skeleton height={40} /> )
+                                    : (
+                                        <input 
                                         type="text" 
-                                        value={formData.domaine}
+                                        name="prenom" 
+                                        id="prenom" 
+                                        placeholder='shop' 
+                                        value={formData.prenom}
                                         onChange={handleChange}
-                                        name="domaine"
-                                        id="domaine"
-                                        placeholder='Agriculture'
-                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.domaine ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                        className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.prenom ? 'border-red-500' : 'border-gray-300'} rounded-md`}
                                     />
-                                )
-                            }
-                            {errors.domaine && <p className="text-red-500 text-xs mt-1">{errors.domaine}</p>}
-                        </div>
-                        <div className="">
-                            <button
-                                className='bg-primary mt-6 text-white p-2 sm:p-3 sm:text-xl text-center rounded-md font-montserrat font-semibold font-montserrat w-full'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? 'En cours...' : 'Inscription'}
-                            </button>
-                            <p className='text-center text-tertiary text-lg font-montserrat font-semibold mt-4'>
-                                Vous avez déjà un compte ? 
-                                <a href="/login" className='text-primary text-lg font-montserrat font-semibold'>Connectez-vous</a>
-                            </p>
-                        </div>
-                    </form>
+                                    )
+                                }
+                                {errors.prenom && <p className="text-red-500 text-xs mt-1">{errors.prenom}</p>}
+                            </div>
+                            <div className="flex flex-col justify-start align-start">
+                                <label htmlFor="organisation" className="block text-sm font-semibold text-tertiary font-montserrat">Nom de votre organisation <span className="text-red-500 font-semibold">*</span></label>
+                                {isSubmitting ?
+                                    (<Skeleton height={40} /> )
+                                    : (
+                                        <input 
+                                            type="text" 
+                                            name="organisation" 
+                                            id="organisation" 
+                                            placeholder='Agroshop'
+                                            value={formData.organisation}
+                                            onChange={handleChange}
+                                            className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.organisation ? 'border-red-500' : 'border-gray-300'} rounded-md`} 
+                                        />
+                                    )
+                                }
+                                {errors.organisation && <p className="text-red-500 text-xs mt-1">{errors.organisation}</p>}
+                            </div>
+                            <div className="flex flex-col justify-start align-start">
+                                <label htmlFor="email" className="block text-sm font-semibold text-tertiary font-montserrat">Adresse mail <span className="text-red-500">*</span></label>
+                                {isSubmitting ?
+                                    (<Skeleton height={40} /> )
+                                    : (
+                                        <input 
+                                            type="email" 
+                                            name="email" 
+                                            id="email" 
+                                            placeholder='Adedev@gmail.com'
+                                            value={formData.email}
+                                            onChange={handleChange} 
+                                            className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                        />
+                                    )
+                                }
+                                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                            </div>
+                            <div className="">
+                                <label htmlFor="phone" className="block text-sm font-semibold text-tertiary font-montserrat">Telephone <span className="text-red-500">*</span></label>
+                                <div className="flex flex-col">
+                                    <div className="flex align-center justify-center mt-1">
+                                    {
+                                        isSubmitting ? (<Skeleton height={40} width={250} />)
+                                        : (
+                                            <PhoneInput
+                                            country={'bj'}
+                                            value={formData.phone}
+                                            onChange={handlePhoneChange}
+                                            inputProps={{
+                                            name: 'phone',
+                                            required: true,
+                                            autoFocus: true,
+                                            className: `sm:h-12 h-10 sm:pl-12 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md`
+                                            }}
+                                        />
+                                        )
+                                    }
+                                </div>
+                                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                            </div>
+                            </div>
+                            <div className="">
+                                <label htmlFor="compte" className="block text-sm font-semibold text-tertiary font-montserrat">Type de compte <span className="text-red-500 font-semibold">*</span></label>
+                                {isSubmitting ?
+                                    (<Skeleton height={40} /> )
+                                    : (
+                                        <select 
+                                            name="compte" 
+                                            id="compte" 
+                                            value={formData.compte}
+                                            onChange={handleChange}
+                                            className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                        >
+                                            <option value="coorperative">Coorperative</option>
+                                            <option value="industrie">Industrie</option>
+                                    </select>
+                                    )
+                                }
+                                {errors.compte && <p className="text-red-500 text-xs mt-1">{errors.compte}</p>}
+                            </div>
+                            <div className="">
+                                <label htmlFor="domaine" className="block text-sm font-semibold text-tertiary font-montserrat">Domaine d'activite <span className="text-red-500 font'semibold">*</span></label>
+                                {isSubmitting ?
+                                    (<Skeleton height={40} /> )
+                                    : (
+                                        <input 
+                                            type="text" 
+                                            value={formData.domaine}
+                                            onChange={handleChange}
+                                            name="domaine"
+                                            id="domaine"
+                                            placeholder='Agriculture'
+                                            className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.domaine ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                        />
+                                    )
+                                }
+                                {errors.domaine && <p className="text-red-500 text-xs mt-1">{errors.domaine}</p>}
+                            </div>
+                            <div className="">
+                                <button
+                                    className='bg-primary mt-6 text-white p-2 sm:p-3 sm:text-xl text-center rounded-md font-montserrat font-semibold font-montserrat w-full'
+                                    type='submit'
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? 'En cours...' : 'Inscription'}
+                                </button>
+                                <p className='text-center text-tertiary text-lg font-montserrat font-semibold mt-4'>
+                                    Vous avez déjà un compte ? 
+                                    <a href="/login" className='text-primary text-lg font-montserrat font-semibold'>Connectez-vous</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>  
-  )
+        </div>  
+    )
 }
 
 export default Signup
