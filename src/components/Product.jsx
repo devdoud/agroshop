@@ -3,11 +3,10 @@ import { FaPlus, FaMinus, FaArrowRight, FaTag, FaBox } from 'react-icons/fa';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const Product = ({ name, pricePerKg, image, onProductClick }) => {
+export default function Product ({ name, pricePerKg, image, onProductClick })  {
 
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const pricePerKg = 20000; // Prix par kilogramme
   const totalPrice = quantity * pricePerKg;
 
   useEffect(() => {
@@ -55,8 +54,14 @@ const Product = ({ name, pricePerKg, image, onProductClick }) => {
             onClick={onProductClick}
         >
             <div 
-                className="bg-[url(src/assets/maïs.jpg)] bg-cover bg-center bg-no-repeat w-full h-2/3 rounded-t-lg"
-                style={{ backgroundImage: `url(${image})` }}
+                className="bg-cover bg-center bg-no-repeat w-full h-2/3 rounded-t-lg"
+                style={{ 
+                  backgroundImage: `url(${image})`,
+                  height: '70%',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                }}
             ></div>
             <div className="w-full h-1/3 p-2 flex flex-col">
                 <h1 className='font-montserrat font-bold text-tertiary text-2xl'>{name}</h1>
@@ -64,7 +69,7 @@ const Product = ({ name, pricePerKg, image, onProductClick }) => {
                     <FaTag className="text-primary" />
                     <span className='font-montserrat font-semibold text-tertiary text-xl'>{totalPrice.toLocaleString()} FCFA</span>
                 </div>
-                <div className="flex items-end justify-between mt-2">
+                <div className="flex items-end justify-between mt-1">
                     <div className="flex items-center gap-2 w-2/3">
                         <span className='font-semibold font-montserrat text-base flex items-center gap-1'>
                             <FaBox className="text-primary" /> Qt :
@@ -97,5 +102,3 @@ const Product = ({ name, pricePerKg, image, onProductClick }) => {
         </div>
   )
 }
-
-export default Product
