@@ -118,6 +118,27 @@ export default function ProductList () {
           image="src/assets/arachide.jpg"
           onProductClick={handleProductClick}
         />
+
+        <Product
+          name="Maïs"
+          image="src/assets/maïs.jpg"
+          pricePerKg={500}
+          onProductClick={() => {}}
+        />
+
+        <Product
+          name="Riz"
+          pricePerKg={15000}
+          image="src/assets/riz.jpg"
+          onProductClick={handleProductClick}
+        />
+
+        <Product
+          name="Arachide"
+          pricePerKg={5000}
+          image="src/assets/arachide.jpg"
+          onProductClick={handleProductClick}
+        />
        
       </div>
     </div>

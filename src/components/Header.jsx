@@ -13,7 +13,7 @@ const Header = () => {
     // Ici s'y trouve le rendu de notre composant Header
     return (
         <>
-            <header className=' grid grid-cols-12  bg-transparent shadow-md h-24'>
+            <header className='grid grid-cols-12  bg-transparent shadow-md h-24'>
                 <div className="col-span-10 col-start-2 flex items-center grid grid-cols-10">
                     
                     {/* <div className="flex items-center justify-center space-x-2 col-span-1">
