@@ -73,8 +73,30 @@ export default function ProductList () {
           </button>
         </div>
       </div>
+        
+      {/* Section des produits */}
+      <div className="grid sm:grid-cols-3 grid-cols-1 col-span-10 col-start-2 w-full gap-8">
 
-      <div className="grid sm:grid-cols-3 grid-cols-1 col-span-10 col-start-2  h-screen w-full gap-8">
+        <Product
+          name="Maïs"
+          image="src/assets/maïs.jpg"
+          pricePerKg={500}
+          onProductClick={() => {}}
+        />
+
+        <Product
+          name="Riz"
+          pricePerKg={15000}
+          image="src/assets/riz.jpg"
+          onProductClick={handleProductClick}
+        />
+
+        <Product
+          name="Arachide"
+          pricePerKg={5000}
+          image="src/assets/arachide.jpg"
+          onProductClick={handleProductClick}
+        />
 
         <Product
           name="Maïs"

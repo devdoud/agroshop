@@ -10,5 +10,7 @@ import Home from './components/Home.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Home />
+    {/* <Login /> */}
+    {/* <Signup /> */}
   </StrictMode>
 )

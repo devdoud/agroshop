@@ -4,7 +4,7 @@ import { FaX } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
-    <footer className='grid grid-cols-12 text-white flex items-center justify-center bg-secondary '>
+    <footer className='grid grid-cols-12 text-white flex items-center justify-center bg-secondary mt-8'>
         <div className="col-span-10 col-start-2 flex flex-col pt-30">
             <div className="grid grid-cols-12 flex items-center justify-between pb-30 border-b border-gray-200">
                 <div className="col-span-3 flex flex-col gap-4">
@@ -35,15 +35,15 @@ const Footer = () => {
                     <div className="">
                       <h1 className='font-montserrat font-semibold text-2xl'>CONTACTS</h1>
                       <ul className='mt-8 flex flex-col space-y-2'>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaMapMarkerAlt className='text-white' />
-                                <span>Abidjan, Côte d'Ivoire</span>
+                                <span>Cotonou, Benin</span>
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg  hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaEnvelope className='text-white' />
@@ -51,7 +51,7 @@ const Footer = () => {
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaPhone className='text-white' />
@@ -59,7 +59,7 @@ const Footer = () => {
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaFacebook className='text-white' />
@@ -67,7 +67,7 @@ const Footer = () => {
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaX className='text-white' />
@@ -75,7 +75,7 @@ const Footer = () => {
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaWhatsapp className='text-white' />
@@ -90,16 +90,16 @@ const Footer = () => {
                     <div className="">
                       <h1 className='font-montserrat font-semibold text-2xl'>PAGES</h1>
                       <ul className='mt-8 flex flex-col space-y-2'>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Accueil</a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Produits</a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Panier</a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Qui sommes nous?</a>
                           </li>
 
@@ -110,10 +110,10 @@ const Footer = () => {
                     <div className="">
                       <h1 className='font-montserrat font-semibold text-2xl'>MENTIONS LEGALES</h1>
                       <ul className='mt-8 flex flex-col space-y-2'>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Condition generale d'utilisation</a>
                           </li>
-                          <li className='font-montserrat text-lg'>
+                          <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Confidentialité</a>
                           </li>
                       </ul>
@@ -121,7 +121,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <small className='text-white text-center font-montserrat text-base p-4'>Copyright Agroshop All Rights Reserved 2025</small>
+            <small className='text-white text-center font-light font-montserrat text-base p-4'>Copyright Agroshop All Rights Reserved 2025</small>
         </div>
     </footer>
   )

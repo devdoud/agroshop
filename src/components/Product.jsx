@@ -91,7 +91,7 @@ export default function Product ({ name, pricePerKg, image, onProductClick })  {
                             </div>
                     </div>
                     <button
-                     className='w-1/3 py-2 border-gray-200 border rounded-lg flex items-center justify-center gap-4 bg-primary text-white'
+                     className='w-1/3 py-2 border-gray-200 border rounded-lg flex items-center justify-center gap-4 bg-primary text-white cursor-pointer'
                      onClick={(e) => e.stopPropagation()}
                     >
                         <span className='font-semibold font-montserat text-base'>Commander</span>
