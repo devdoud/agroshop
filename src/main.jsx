@@ -4,13 +4,11 @@ import './index.css'
 import App from './App.jsx'
 import Signup from './components/Signup.jsx'
 import Login from './components/Login.jsx'
-import Header from './components/Header.jsx'
-import ProductList from './components/ProductList.jsx'
+import Home from './components/Home.jsx'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Header />
-    <ProductList />
+    <Home />
   </StrictMode>
 )
