@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { Link } from 'react-router-dom';
 // import 'flag-icons-css/css/flag-icon.min.css';
 
 const Signup = () => {
@@ -101,7 +102,7 @@ const handleChange = (e) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
-        <div className="h-screen bg-primary"></div>
+        <div className="h-screen bg-gray-200"></div>
         <div className="h-screen">
           <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
             <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center mb-4 mt-16'>
@@ -148,12 +149,12 @@ const handleChange = (e) => {
 // ceci est le rendu de la page d'inscription
     return (
         <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 h-full">
-                <div className="h-screen bg-primary"></div>
-                <div className="h-screen">
-                    <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 mt-8 ">
+                <div className="bg-[url(src/assets/agriasso.jpg)] bg-cover bg-no-repeat"></div>
+                <div className="">
+                    <div className="sm:w-2/4 w-3/4 h-screen flex flex-col item-center justify-center mx-auto my-auto">
                         <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center'>Inscription Page</h1>
-                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-8 mt-8'>
+                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-8 mt-4'>
                             {errorMessage && <p className="text-red-500 text-xs mt-1">{errorMessage}</p>}
                             <div className="flex flex-col justify-start align-start">
                                 <label htmlFor="nom" className="block text-sm font-semibold text-tertiary font-montserrat">Nom <span className="text-red-500 font-semibold">*</span></label>
@@ -298,7 +299,7 @@ const handleChange = (e) => {
                                 </button>
                                 <p className='text-center text-tertiary text-lg font-montserrat font-semibold mt-4'>
                                     Vous avez déjà un compte ? 
-                                    <a href="/login" className='text-primary text-lg font-montserrat font-semibold'>Connectez-vous</a>
+                                    <Link to="/login" className='text-primary text-lg font-montserrat font-semibold'>Connectez-vous</Link>
                                 </p>
                             </div>
                         </form>

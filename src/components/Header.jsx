@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router'
+import { useSelector } from 'react-redux'
 import { FaSearch, FaShoppingCart, FaBars, FaUser, FaUserPlus, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
-    const cartItemCount = 3;
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+    const cartItems = useSelector(state =>  state.cart.items)
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
@@ -13,7 +15,7 @@ const Header = () => {
     // Ici s'y trouve le rendu de notre composant Header
     return (
         <>
-            <header className='grid grid-cols-12  bg-transparent shadow-md h-24'>
+            <header className='grid grid-cols-12  bg-white shadow-md h-24 fixed left-0 right-0 top-0'>
                 <div className="col-span-10 col-start-2 flex items-center grid grid-cols-10">
                     
                     {/* <div className="flex items-center justify-center space-x-2 col-span-1">
@@ -24,10 +26,12 @@ const Header = () => {
                         {/* Icône hamburger visible sur petits écrans */}
                         <FaBars className="text-primary text-2xl block lg:hidden" onClick={toggleDrawer} />
                         {/* Logo visible sur grands écrans */}
-                        <div className="hidden lg:flex items-center space-x-2">
-                            <span className='h-2.5 w-2.5 rounded-full bg-primary'></span>
-                            <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgroShop</h1>
-                        </div>
+                        <Link to='/'>
+                            <div className="hidden lg:flex items-center space-x-2">
+                                <span className='h-2.5 w-2.5 rounded-full bg-primary'></span>
+                                <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgroShop</h1>
+                            </div>
+                        </Link>
                     </div>
                     <div className="h-12 col-span-4 col-start-4 relative">
                         <input 
@@ -39,23 +43,23 @@ const Header = () => {
                     </div>
                     <div className="col-span-4 col-start-9 flex items-center justify-between">
                         <div className="flex items-center space-x-8 w-full">
-                            <a href="#" className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
+                            <Link to='/login' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
                                 <FaUser className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Connexion</span>
-                            </a>
-                            <a href="#" className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
+                            </Link>
+                            <Link to='/signup' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
                                 <FaUserPlus className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Inscription</span>
-                            </a>
+                            </Link>
                         </div>
-                        <div className="relative flex items-center hidden lg:flex">
-                            <FaShoppingCart className="text-tertiary text-3xl" />
-                            {cartItemCount > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                    {cartItemCount}
+                         <Link to='/cart'>
+                            <div className="relative flex items-center hidden lg:flex cursor-pointer">
+                                <FaShoppingCart className="text-tertiary text-3xl" />
+                                <span className="absolute -top-2 -right-2 bg-primary text-white text-sm font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                    {cartItems.length}
                                 </span>
-                            )}
-                        </div>
+                            </div>
+                         </Link>   
                     </div>
                 </div>
             </header>
@@ -95,9 +99,9 @@ const Header = () => {
                                     </a>
                                     </li>
                                     <li>
-                                    <a href="#" className="text-tertiary font-montserrat font-semibold flex items-center space-x-2">
-                                        <span>Produits</span>
-                                    </a>
+                                        <Link to='/' className="text-tertiary font-montserrat font-semibold flex items-center space-x-2">
+                                            <span>Produits</span>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>

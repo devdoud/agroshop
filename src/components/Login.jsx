@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -88,7 +89,7 @@ const validate = (values) => {
   if (isLoading) {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 h-full">
-          <div className="h-screen bg-primary"></div>
+          <div className="h-screen bg-gray-200"></div>
           <div className="h-screen"> 
             <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
               <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center'>
@@ -124,10 +125,10 @@ const validate = (values) => {
 
   // Ici se trouve le code de la page de connexion
   return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
-        <div className="h-screen bg-primary"></div>
-        <div className="h-screen">
-            <div className="sm:w-2/4 w-3/4 h-screen flex flex-col align-center justify-center mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 mt-8">
+        <div className="bg-[url(src/assets/cantsco.jpg)] bg-cover bg-no-repeat" ></div>
+        <div className="overflow-hidden">
+            <div className="sm:w-2/4 h-screen w-3/4 flex flex-col align-center justify-center mx-auto">
                 <h1 className='text-3xl font-semibold font-montserrat text-tertiarry text-center'>Connexion Page</h1>
                 <form action="" onSubmit={handleSubmit} className='flex flex-col gap-8 mt-8'>
 
@@ -189,7 +190,7 @@ const validate = (values) => {
                         </button>
                         <p className='text-center text-tertiary text-lg font-montserrat font-semibold mt-4'>
                             Vous n'avez pas de compte ? 
-                            <a href="/register" className='text-primary text-lg font-montserrat font-semibold'>Inscrivez-vous</a>
+                            <Link to='/signup' className='text-primary text-lg font-montserrat font-semibold'>Inscrivez-vous</Link>
                         </p>
                   </div>
                 </form>
