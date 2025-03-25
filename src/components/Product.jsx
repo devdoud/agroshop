@@ -74,7 +74,7 @@ export default function Product ({ id, name, price, image })  {
                 <h1 className='font-montserrat font-bold text-tertiary text-2xl'>{name}</h1>
                 <div className="flex items-center gap-2 mt-2">
                     <FaTag className="text-primary" />
-                    <span className='font-montserrat font-semibold text-tertiary text-xl'>{price} FCFA</span> 
+                    <span className='font-montserrat font-semibold text-tertiary text-xl'>{price} FCFA / Kg</span> 
                 </div>
                 <div className="flex items-end justify-between mt-1">
                     <div className="flex items-center gap-2 w-2/3">

@@ -264,8 +264,8 @@ const handleChange = (e) => {
                                             onChange={handleChange}
                                             className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
                                         >
-                                            <option value="coorperative">Coorperative</option>
-                                            <option value="industrie">Industrie</option>
+                                            <option value="coorperative">Client</option>
+                                            <option value="industrie">Fournisseur</option>
                                     </select>
                                     )
                                 }

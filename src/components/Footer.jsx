@@ -68,22 +68,6 @@ const Footer = () => {
                               </span>
                             </a>
                           </li>
-                          <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">
-                              <span className='flex items-center gap-2'>
-                                <FaX className='text-white' />
-                                <span>AgroShop</span>
-                              </span>
-                            </a>
-                          </li>
-                          <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">
-                              <span className='flex items-center gap-2'>
-                                <FaWhatsapp className='text-white' />
-                                <span>+229 01 20 01 02 03</span>
-                              </span>
-                            </a>
-                          </li>
                       </ul>
                     </div>
 
