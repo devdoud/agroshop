@@ -11,6 +11,7 @@ const Signup = () => {
 const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
+    password: '',
     organisation: '',
     email: '',
     phone: '',
@@ -132,6 +133,10 @@ const handleChange = (e) => {
               <div className="flex flex-col justify-start align-start">
                 <Skeleton height={12} width={90} />
                 <Skeleton height={40} />
+              </div>
+              <div className="flex flex-col justify-start align-start">
+                <Skeleton height={12} width={90} />
+                <Skeleton height={40} />
               </div>    
               <div className="mt-4">
                 <Skeleton height={40} />
@@ -191,6 +196,22 @@ const handleChange = (e) => {
                                     )
                                 }
                                 {errors.prenom && <p className="text-red-500 text-xs mt-1">{errors.prenom}</p>}
+                            </div>
+                            <div className="flex flex-col justify-start align-start">
+                              <label htmlFor='password' className="block text-sm font-semibold text-tertiary font-montserrat">Password</label>
+                              {isSubmitting ?
+                                  (<Skeleton height={40} /> )
+                                  : (
+                                      <input 
+                                          type="password" 
+                                          name="password" 
+                                          id="password" 
+                                          placeholder='*********'
+                                          className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                      />
+                                  )
+                              }
+                              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
                             </div>
                             <div className="flex flex-col justify-start align-start">
                                 <label htmlFor="organisation" className="block text-sm font-semibold text-tertiary font-montserrat">Nom de votre organisation <span className="text-red-500 font-semibold">*</span></label>
