@@ -56,7 +56,7 @@ const Footer = () => {
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaPhone className='text-white' />
-                                <span>+229 01 50 00 01 50</span>
+                                <span>+229 01 97 25 57 08</span>
                               </span>
                             </a>
                           </li>
