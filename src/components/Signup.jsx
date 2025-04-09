@@ -285,14 +285,36 @@ const handleChange = (e) => {
                                             onChange={handleChange}
                                             className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
                                         >
-                                            <option value="coorperative">Client</option>
-                                            <option value="industrie">Fournisseur</option>
+                                            <option value="client">Client</option>
+                                            <option value="fournisseur">Fournisseur</option>
                                     </select>
                                     )
                                 }
                                 {errors.compte && <p className="text-red-500 text-xs mt-1">{errors.compte}</p>}
                             </div>
-                            <div className="">
+                            { formData.compte === 'fournisseur' && (
+                              <div className="">
+                                  <label htmlFor="domaine" className="block text-sm font-semibold text-tertiary font-montserrat">Domaine d'activite <span className="text-red-500 font-semibold">*</span></label>
+                                  {isSubmitting ?
+                                      (<Skeleton height={40} /> )
+                                      : (
+                                          <select 
+                                              name="domaine" 
+                                              id="domaine" 
+                                              value={formData.compte}
+                                              onChange={handleChange}
+                                              className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                          >
+                                              <option value="agriculteur">Agriculteur</option>
+                                              <option value="commercant">Commercant</option>
+                                      </select>
+                                      )
+                                  }
+                                  {errors.compte && <p className="text-red-500 text-xs mt-1">{errors.compte}</p>}
+                              </div>
+                            )
+                            }
+                            {/* <div className="">
                                 <label htmlFor="domaine" className="block text-sm font-semibold text-tertiary font-montserrat">Domaine d'activite <span className="text-red-500 font'semibold">*</span></label>
                                 {isSubmitting ?
                                     (<Skeleton height={40} /> )
@@ -309,7 +331,7 @@ const handleChange = (e) => {
                                     )
                                 }
                                 {errors.domaine && <p className="text-red-500 text-xs mt-1">{errors.domaine}</p>}
-                            </div>
+                            </div> */}
                             <div className="">
                                 <button
                                     className='bg-primary mt-6 text-white p-2 sm:p-3 sm:text-xl text-center rounded-md font-montserrat font-semibold font-montserrat w-full'

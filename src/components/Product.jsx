@@ -37,7 +37,7 @@ export default function Product ({ id, name, price, image })  {
     return (
       <div className='flex flex-col h-90 rounded-lg shadow-md border border-gray-200'>
         <div className="h-2/3">
-            <Skeleton height={230} className="rounded-t-lg" />
+            <Skeleton height={240} className="rounded-t-lg" />
         </div>
         <div className="w-full h-1/3 p-2 flex flex-col">        
             <Skeleton height={20} width="60%" />
