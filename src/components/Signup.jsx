@@ -301,12 +301,14 @@ const handleChange = (e) => {
                                           <select 
                                               name="domaine" 
                                               id="domaine" 
-                                              value={formData.compte}
+                                              value={formData.domaine}
                                               onChange={handleChange}
                                               className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.compte ? 'border-red-500' : 'border-gray-300'} rounded-md`}
                                           >
                                               <option value="agriculteur">Agriculteur</option>
                                               <option value="commercant">Commercant</option>
+                                              <option value="distributeur">Distributeur</option>
+                                              <option value="autre">Autre</option>
                                       </select>
                                       )
                                   }
