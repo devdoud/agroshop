@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { FaPlus, FaMinus, FaArrowRight, FaTag, FaBox } from 'react-icons/fa';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { addToCart } from '../features/shopCarts/cartSlice';
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function Product ({ id, name, price, image })  {
+export default function Product ({ id, name, price, image, })  {
 
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +13,7 @@ export default function Product ({ id, name, price, image })  {
   // utilisation de react redux 
   // const dispatch = useDispatch()
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -86,36 +84,42 @@ export default function Product ({ id, name, price, image })  {
     );
   } 
 
-  const handleAddToCart = async () => {
-
-    const accesstoken = localStorage.getItem('accesstoken') // Récupérer le token d'accès depuis le localStorage
+  const handleAddToCart = async (id) => {
+    const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès depuis le localStorage
     console.log('Token récupéré depuis localStorage :', accesstoken);
-
-    
+  
+    if (!accesstoken) {
+      toast.error('Vous devez être connecté pour ajouter un produit au panier.');
+      return;
+    }
+  
     try {
       const response = await fetch('http://77.37.54.205:8080/api/cart/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Ajoutez un token d'authentification si nécessaire
-          'Authorization': `Bearer ${accesstoken}`,
+          'Authorization': `Bearer ${accesstoken}`, // Ajouter le token d'authentification
         },
         body: JSON.stringify({
-          "productId": id
+          productId: id,
         }),
       });
+      
+      console.log('Données envoyées :', { productId: id });
+      console.log('Statut de la réponse :', response.status);
   
       if (!response.ok) {
+        const errorText = await response.text(); // Lire le texte de l'erreur
+        console.error('Erreur lors de l\'ajout au panier :', errorText);
         throw new Error('Erreur lors de l\'ajout au panier');
       }
   
-      const data = await response.json();
+      const data = await response.json(); // Lire la réponse JSON
       console.log('Produit ajouté au panier avec succès :', data);
-      // alert('Produit ajouté au panier avec succès !');
+  
       toast.success('Produit ajouté au panier avec succès !');
     } catch (error) {
       console.error('Erreur lors de l\'ajout au panier :', error);
-      // alert('Une erreur est survenue lors de l\'ajout au panier.');
       toast.error('Une erreur est survenue lors de l\'ajout au panier.');
     }
   };
@@ -162,7 +166,7 @@ export default function Product ({ id, name, price, image })  {
                       className='w-1/3 py-2 border-gray-200 border rounded-lg flex items-center justify-center gap-4 bg-primary text-white cursor-pointer'
                       onClick={(e) => { 
                         e.stopPropagation;  
-                        handleAddToCart(); // Appeler la fonction pour ajouter au panier
+                        handleAddToCart(id); // Appeler la fonction pour ajouter au panier
                         // dispatch(addToCart({name, price, image, id}))
                       }}
                     >

@@ -13,7 +13,6 @@ import ForgotPasswordOtpVerification from './components/ForgotPasswordOtpVerific
 import ResetPassword from './components/ResetPassword.jsx'
 import Basket from './pages/Basket.jsx'
 import store from './app/store'
-import { Provider } from 'react-redux'
 import Dashboard from './pages/Dashboard.jsx'
 import Layout from './components/Layout.jsx'
 import BasketLayout from './components/BasketLayout.jsx'
@@ -25,8 +24,7 @@ import { SearchProvider } from './context/SearchContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <ToastContainer />
-      <Provider store={store}>
-        <BrowserRouter>
+      <BrowserRouter>
               <Routes>
                 <Route element={<Layout />}>
                   <Route path='/' element={<Home />} />
@@ -44,26 +42,6 @@ createRoot(document.getElementById('root')).render(
                 <Route path='/dashboard' element={<Dashboard />} />
               </Routes>
         </BrowserRouter>
-        {/* <SearchProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path='/' element={<Home />} />
-                <Route path='/:id' element={<ProductDetailPage />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<Signup />} />
-              </Route>
-              <Route element={<BasketLayout />}>
-                <Route path='/cart' element={<Basket />} />
-                <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route path="/forgotpasswordotp" element={<ForgotPasswordOtpVerification />} />
-                <Route path="/resetpassword" element={<ResetPassword />} />
-              </Route>   
-              <Route path='/dashboard' element={<Dashboard />} />
-            </Routes>
-          </BrowserRouter>
-        </SearchProvider> */}
-      </Provider>
   </StrictMode>
   
 )

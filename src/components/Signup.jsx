@@ -90,7 +90,7 @@ const handleChange = (e) => {
       try {
         const payload = {
           ...formData,
-          mobile: Number(formData.mobile) // Assurez-vous que mobile est un nombre
+          mobile: formData.mobile // Assurez-vous que mobile est un nombre
         };
         const response = await fetch('http://77.37.54.205:8080/api/user/register', {
           method: 'POST',

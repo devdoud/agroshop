@@ -69,24 +69,36 @@ export default function ProductList () {
     const fetchProducts = async () => {
       try {
         let url = 'http://77.37.54.205:8080/api/product/get';
-        let body = {};
+        let body;
+        const selectedCategoryObject = category.find(
+          (categorie) => categorie.name === selectedCategory
+        );
+
+        const id_categorie = selectedCategoryObject ? selectedCategoryObject._id : null;
+        console.log('is selected:', id_categorie)
   
         // Si une catégorie spécifique est sélectionnée, utilisez l'endpoint "get-product-by-category"
         if (selectedCategory !== 'Tout') {
-          url = 'http://77.37.54.205:8080/api/product/get-product-by-category';
-          body = { id: selectedCategory };
+          url = 'http://77.37.54.205:8080/api/product/get-product-by-category';       
+          body = JSON.stringify(
+            {id: id_categorie}
+          )
         }
+
+        console.log('URL utilisée :', url);
+        console.log('Body envoyé :', body);
   
         const response = await fetch(url, {
-          method: 'GET',
+          method: selectedCategory !== 'Tout' ? 'POST' : 'GET',
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
           },
+          body: selectedCategory !== 'Tout' ? body : null, // Inclure le body uniquement pour POST
         });
   
         const data = await response.json();
-        console.log('Data from API:', data.data);
+        console.log('Data from API:', data);
         setProducts(data.data || []);
       } catch (error) {
         console.error('Erreur lors de la récupération des produits :', error);

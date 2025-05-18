@@ -1,14 +1,11 @@
 
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { FaMinusCircle, FaPlusCircle, FaBookmark, FaTrash, FaCheck } from 'react-icons/fa';
 import { applyTempUpdate, removeFromCart, updateTempQuantity } from '../features/shopCarts/cartSlice';
 import { toast } from 'react-toastify';
 
 
-  const BasketProduct = ({ name, price, image, id, quantity }) => {
-  // use this to get actions from redux store
-  const dispatch = useDispatch()
+  const BasketProduct = ({ name, price, image, id, quantity, onRemove }) => {
 
   const [localQuantity, setLocalQuantity] = useState(quantity)
 
@@ -69,41 +66,9 @@ import { toast } from 'react-toastify';
     }
   };
 
-  const handleRemoveItem = async (id) => {
-    try {
-      const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
-      if (!accesstoken) {
-        toast.error('Vous devez être connecté pour supprimer un produit.');
-        return;
-      }
-  
-      const response = await fetch(`http://77.37.54.205:8080/api/cart/delete-cart-item`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
-        },
-        body: JSON.stringify({
-          _id: id, // ID du produit à supprimer
-        }),
-      });
-  
-      const responseText = await response.text();
-  
-      if (!response.ok) {
-        throw new Error(`Erreur lors de la suppression du produit : ${responseText}`);
-      }
-  
-      const data = JSON.parse(responseText);
-      console.log('Produit supprimé avec succès :', data);
-  
-      toast.success('Produit supprimé avec succès.');
-    } catch (error) {
-      console.error('Erreur lors de la suppression du produit :', error);
-      toast.error('Une erreur est survenue lors de la suppression du produit.');
-    }
+  const calculateTotalPrice = () => {
+    return localQuantity * price;
   };
-
 
   const handleApplyUpdate = () => {
     tempItems.forEach((item) =>{
@@ -151,7 +116,7 @@ import { toast } from 'react-toastify';
               <div className="flex gap-4 mt-[15px] items-center">
                 <button
                   className="flex gap-1 items-center justify-center bg-red-500 py-1 px-3 rounded-md"
-                  onClick={() => handleRemoveItem(id)}
+                  onClick={onRemove}
                 >
                   <FaTrash className="text-white  h-3 w-3" />
                   <span className="font-montserrat font-medium text-sm text-white">Supprimer</span>
@@ -173,7 +138,7 @@ import { toast } from 'react-toastify';
         </div>  
         <div className="flex justify-between py-[20.5px] pl-[123px] pr-[24px] items-center">
             <p className='text-[#1D252C] font-montserrat font-semibold text-[14px] leading-[16.8px]'>Total des produits</p>
-            <span className='font-montserrat text-sm font-bold leading-[18px]'>15000F CFA</span> 
+            <span className='font-montserrat text-sm font-bold leading-[18px]'>{calculateTotalPrice()}F CFA</span> 
         </div>
     </div>
   )

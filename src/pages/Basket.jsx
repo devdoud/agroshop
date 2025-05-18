@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router";
 import BasketProduct from '../components/BasketProduct'
+import { toast } from 'react-toastify';
 
 
 const Basket = () => {
@@ -39,6 +40,131 @@ const Basket = () => {
         fetchCartProducts();
     }, [])
 
+    const handleRemoveItem = async (id) => {
+        try {
+          const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
+          if (!accesstoken) {
+            toast.error('Vous devez être connecté pour supprimer un produit.');
+            return;
+          }
+      
+          const response = await fetch(`http://77.37.54.205:8080/api/cart/delete-cart-item`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
+            },
+            body: JSON.stringify({
+              _id: id// ID du produit à supprimer
+            }),
+          });
+      
+          const responseText = await response.text();
+      
+          if (!response.ok) {
+            throw new Error(`Erreur lors de la suppression du produit : ${responseText}`);
+          }
+      
+          const data = JSON.parse(responseText);
+          console.log('Produit supprimé avec succès :', data);
+
+          setCartProducts( (prevCartProducts) => prevCartProducts.filter((item) => item._id !== id) )
+      
+          toast.success('Produit supprimé avec succès.');
+        } catch (error) {
+          console.error('Erreur lors de la suppression du produit :', error);
+          toast.error('Une erreur est survenue lors de la suppression du produit.');
+        }
+      };
+
+
+      const handleCheckout = async () => {
+        try {
+          const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
+          if (!accesstoken) {
+            toast.error('Vous devez être connecté pour passer à la caisse.');
+            return;
+          }
+      
+          // Préparer les données pour l'API
+          const list_items = cartProduct.map((item) => ({
+            productId: item.productId._id,
+            name: item.productId.name,
+            price: item.productId.price,
+            quantity: item.quantity,
+          }));
+      
+          const subtotal_amount = list_items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          const total_amount = subtotal_amount; // Ajoutez des frais supplémentaires si nécessaire
+      
+          const body = {
+            list_items,
+            subtotal_amount,
+            total_amount,
+          };
+      
+          console.log('Données envoyées pour le paiement :', body);
+      
+          // Initialiser le paiement avec FedaPay
+          FedaPay.init({
+            public_key: PUBLIC_KEY, // Utilisez votre clé publique FedaPay
+            transaction: {
+              amount: total_amount, // Montant total
+              currency: 'XOF', // Devise
+            },
+            customer: {
+              firstname: 'John', // Remplacez par les données utilisateur
+              lastname: 'Doe',
+              email: 'user@example.com',
+            },
+            onComplete: async (response) => {
+              console.log('Réponse du paiement :', response);
+      
+              // Vérifiez si le paiement a réussi
+              if (response.status === 'approved') {
+                // Envoyer la requête à l'API backend pour finaliser le paiement
+                const apiResponse = await fetch('http://77.37.54.205:8080/api/order/checkout', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`,
+                  },
+                  body: JSON.stringify({
+                    ...body,
+                    paymentReference: response.transaction_id, // Référence du paiement
+                  }),
+                });
+      
+                if (!apiResponse.ok) {
+                  throw new Error(`Erreur lors du paiement : ${apiResponse.statusText}`);
+                }
+      
+                const data = await apiResponse.json();
+                console.log('Réponse de l\'API de paiement :', data);
+      
+                toast.success('Paiement effectué avec succès !');
+                navigate('/confirmation'); // Rediriger vers une page de confirmation
+              } else {
+                toast.error('Le paiement a échoué.');
+              }
+            },
+            onCancel: () => {
+              console.log('Paiement annulé par l\'utilisateur.');
+              toast.error('Paiement annulé.');
+            },
+            onError: (error) => {
+              console.error('Erreur lors du paiement :', error);
+              toast.error('Une erreur est survenue lors du paiement.');
+            },
+          });
+      
+          FedaPay.open(); // Ouvrir l'interface de paiement
+        } catch (error) {
+          console.error('Erreur lors du paiement :', error);
+          toast.error('Une erreur est survenue lors du paiement.');
+        }
+      };
+
   return (
     <>
         <div className="grid grid-cols-12 mt-12 h-full">
@@ -66,7 +192,9 @@ const Basket = () => {
                                         name={item.productId.name} 
                                         price={item.productId.price} 
                                         image={item.productId.image} 
-                                        id={item.productId._id} 
+                                        id={item.productId._id}
+                                        id_panier={item._id}
+                                        onRemove={() => handleRemoveItem(item._id)}
                                         quantity={item.quantity} 
                                         key={item.productId._id}
                                     />
@@ -76,11 +204,6 @@ const Basket = () => {
                     </div>
                     <div className="bg-[#F0F2F4] p-8 h-3/4 flex flex-col gap-[20px] w-[350px]">
                         <p className='text-tertiary font-montserrat font-bold text-lg text-center'>Résumé de la commande</p>
-                        {/* <ul className='flex flex-col gap-[14px]'>
-                         {keyValuePairs.map(([key, value]) => <li key={key} className='flex justify-between font-medium font-montserrat text-[#1D252C] text-[10px] leading-[12px]'>
-                            {key} <span className='font-bold text-black'>{value}</span>
-                        </li>)}
-                        </ul> */}
                         <div className='flex justify-between items-center'>
                             <p className='font-medium font-montserrat text-tertiary text-sm'>Estimation du total </p>
                             <span className='text-tertiary text-sm font-bold'>15000F CFA</span>
@@ -96,6 +219,7 @@ const Basket = () => {
                         </label>
                         <button
                             className='font-montserrat font-medium text-white bg-primary rounded-md py-2 mt-8 cursor-pointer focus:border-none'
+                            onClick={handleCheckout}
                         >Passer à la caisse</button>
                     </div>
                 </section>

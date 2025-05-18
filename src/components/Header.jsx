@@ -1,14 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
-import { useSelector } from 'react-redux'
 // import { SearchContext } from '../context/SearchContext';
 import { FaSearch, FaShoppingCart, FaBars, FaUser, FaUserPlus, FaTimes } from 'react-icons/fa';
 
 const Header = ({ searchQuery, setSearchQuery }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [countCartItems, setcountCartItems] = useState(0)
-
-    const cartItems = useSelector(state =>  state.cart.items)
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
