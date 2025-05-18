@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   // Ici se trouve les variables d'état
@@ -18,6 +19,8 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
       // Simulate page loading
@@ -60,7 +63,7 @@ const validate = (values) => {
       setIsSubmitting(true);
       setErrorMessage('');
       try {
-        const response = await fetch('https://api.example.com/login', {
+        const response = await fetch('http://77.37.54.205:8080/api/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -72,7 +75,13 @@ const validate = (values) => {
         }
         const data = await response.json();
         console.log('Login successful', data);
-        history.push('/dashboard');
+
+        // Stocker le token dans le localStorage ou le sessionStorage
+        localStorage.setItem('accesstoken', data.data.accesstoken);
+        console.log('Token stocké dans localStorage :', localStorage.getItem('accesstoken'));
+
+        toast.success('Connexion réussie !')
+        navigate('/'); // Redirige vers la page de connexion
       } catch (error) {
         console.error('Error logging in', error);
         setErrorMessage('Une erreur est survenue lors de la connexion. Veuillez réessayer.');
@@ -177,7 +186,7 @@ const validate = (values) => {
                       }
                       {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
 
-                      <a href="/forgot-password" className='mt-2 text-tertiary text-sm font-montserrat font-semibold'>Mot de passe oublié ?</a>
+                      <Link to='/forgotpassword' className='mt-2 text-tertiary text-sm font-montserrat font-semibold cursor-pointer'>Mot de passe oublié ?</Link>
                   </div>
 
                   <div className="">
@@ -185,6 +194,7 @@ const validate = (values) => {
                           className='bg-primary mt-6 text-white p-2 sm:p-3 sm:text-xl text-center rounded-md font-montserrat font-semibold font-montserrat w-full'
                           type='submit'
                           disabled={isSubmitting}
+                          onClick={handleSubmit}
                         >
                             {isSubmitting ? <div className="loader"></div> : 'Connexion'}
                         </button>

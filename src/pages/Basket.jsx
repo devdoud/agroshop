@@ -1,14 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router";
-import Header from '../components/Header'
 import BasketProduct from '../components/BasketProduct'
 
-import { useSelector } from 'react-redux'
 
 const Basket = () => {
-    const {items:cartItems, tempItems, totalPrice} =  useSelector(state => state.cart)
+    const [cartProduct, setCartProducts] = useState([])
 
     let navigate = useNavigate();
+
+    useEffect(()=>{
+        const fetchCartProducts = async () => {
+            try {
+              const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
+        
+              if (!accesstoken) {
+                throw new Error('Vous devez être connecté pour voir votre panier.');
+              }
+        
+              const response = await fetch('http://77.37.54.205:8080/api/cart/get', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
+                },
+              });
+        
+              if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des produits du panier.');
+              }
+        
+              const data = await response.json();
+              console.log('Produits du panier récupérés :', data);
+              setCartProducts(data.data || []); // Mettre à jour l'état avec les produits récupérés
+            } catch (error) {
+              console.error('Erreur lors de la récupération des produits du panier :', error);
+            }
+          };
+        fetchCartProducts();
+    }, [])
 
   return (
     <>
@@ -21,7 +50,7 @@ const Basket = () => {
                         {/* <BasketProduct name={'Arachide'} price={'$29.99'} />
                         <BasketProduct name={'Granut'} price={'$30'} /> */}
                         {
-                            cartItems.length === 0 ? 
+                            cartProduct.length === 0 ? 
                             (
                                 <div className="my-auto flex flex-col items-center justify-center gap-4">
                                     <h3 className='font-montserrat font-bold text-3xl text-center'>Votre Panier est vide</h3>
@@ -32,18 +61,18 @@ const Basket = () => {
                                 </div>
                             ) :
                             (
-                                cartItems.map( (item) => (
-                                    <BasketProduct name={item.name} price={item.price} image={item.image} id={item.id} quantity={item.quantity} key={item.id}/>
+                                cartProduct.map( (item) => (
+                                    <BasketProduct 
+                                        name={item.productId.name} 
+                                        price={item.productId.price} 
+                                        image={item.productId.image} 
+                                        id={item.productId._id} 
+                                        quantity={item.quantity} 
+                                        key={item.productId._id}
+                                    />
                                 ) )
                             )
                         }
-                        {/* <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                            <p className='text-[#1D252C] text-[15px] leading-[18px]'>Vos articles enregistrés</p>
-                            <span className='text-[#55555A] text-[9px] leading-[18px] font-normal'>(0 article)</span>
-                        </div>
-                        <p className='text-[12px] leading-[18px] text-[#1D252C]'>Utilisez l'option « Enregistrer pour plus tard » pour créer une liste des articles qui vous intéressent.</p>
-                        </div> */}
                     </div>
                     <div className="bg-[#F0F2F4] p-8 h-3/4 flex flex-col gap-[20px] w-[350px]">
                         <p className='text-tertiary font-montserrat font-bold text-lg text-center'>Résumé de la commande</p>
@@ -54,7 +83,7 @@ const Basket = () => {
                         </ul> */}
                         <div className='flex justify-between items-center'>
                             <p className='font-medium font-montserrat text-tertiary text-sm'>Estimation du total </p>
-                            <span className='text-tertiary text-sm font-bold'>{totalPrice} F CFA</span>
+                            <span className='text-tertiary text-sm font-bold'>15000F CFA</span>
                         </div>
                         <p className='font-montserrat text-[10px] font-semibold leading-[12px] text-[#1D252C]'>Comment souhaitez-vous obtenir votre commande?</p>
                         <label className='text-[#001E73] font-montserrat font-medium text-[10px] leading-[12px] flex gap-1 items-center'>

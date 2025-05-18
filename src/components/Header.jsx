@@ -1,21 +1,97 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router'
 import { useSelector } from 'react-redux'
+// import { SearchContext } from '../context/SearchContext';
 import { FaSearch, FaShoppingCart, FaBars, FaUser, FaUserPlus, FaTimes } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({ searchQuery, setSearchQuery }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [countCartItems, setcountCartItems] = useState(0)
 
     const cartItems = useSelector(state =>  state.cart.items)
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
       };
+
+      const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+      };
+
+      useEffect(()=>{
+        const fetchCartProducts = async () => {
+            try {
+              const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
+        
+              if (!accesstoken) {
+                throw new Error('Vous devez être connecté pour voir votre panier.');
+              }
+        
+              const response = await fetch('http://77.37.54.205:8080/api/cart/get', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
+                },
+              });
+        
+              if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des produits du panier.');
+              }
+        
+              const data = await response.json();
+              console.log('Total de produits du panier récupérés :', data.data.length);
+              setcountCartItems(data.data.length || 0); // Mettre à jour l'état avec les produits récupérés
+            } catch (error) {
+              console.error('Erreur lors de la récupération des produits du panier :', error);
+            }
+          };
+        fetchCartProducts();
+      }, [])
+
+    const handleSearch = async () => {
+        if (searchQuery.trim() === '') {
+          toast.error('Veuillez entrer un terme de recherche.');
+          return;
+        }
+      
+        try {
+          const response = await fetch('http://77.37.54.205:8080/api/product/search-product', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              query: searchQuery, // Inclure le terme de recherche
+            }),
+          });
+      
+          if (!response.ok) {
+            throw new Error('Erreur lors de la recherche.');
+          }
+      
+          const data = await response.json();
+          console.log('Résultats de la recherche :', data.data);
+      
+          // Rediriger ou afficher les résultats
+          // Exemple : navigate(`/search-results`, { state: { results: data.data } });
+        } catch (error) {
+          console.error('Erreur lors de la recherche :', error);
+          toast.error('Une erreur est survenue lors de la recherche.');
+        }
+      };
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      };
   
+    
     // Ici s'y trouve le rendu de notre composant Header
     return (
         <>
-            <header className='grid grid-cols-12  bg-white shadow-md h-24 fixed left-0 right-0 top-0'>
+            <header className='grid grid-cols-12  bg-white shadow-md h-24 fixed left-0 right-0 top-0 z-50'>
                 <div className="col-span-10 col-start-2 flex items-center grid grid-cols-10">
                     
                     {/* <div className="flex items-center justify-center space-x-2 col-span-1">
@@ -29,7 +105,7 @@ const Header = () => {
                         <Link to='/'>
                             <div className="hidden lg:flex items-center space-x-2">
                                 <span className='h-2.5 w-2.5 rounded-full bg-primary'></span>
-                                <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgroShop</h1>
+                                <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgriMarket</h1>
                             </div>
                         </Link>
                     </div>
@@ -37,6 +113,9 @@ const Header = () => {
                         <input 
                             type="text" 
                             placeholder='Rechercher un produit'
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            onKeyDown={handleKeyDown}
                             className='w-full h-full bg-transparent rounded-full border-primary border-2 outline-none sm:pl-10 pl-8 py-4 font-montserrat font-semibold text-tertiary sm:text-md text-sm'
                         />
                         <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary" />
@@ -47,16 +126,17 @@ const Header = () => {
                                 <FaUser className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Connexion</span>
                             </Link>
-                            <Link to='/signup' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
+                            {/* <Link to='/signup' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
                                 <FaUserPlus className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Inscription</span>
-                            </Link>
+                            </Link> */}
+                            <Link to={'/dashboard'} className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>Dashboard</Link>
                         </div>
                          <Link to='/cart'>
                             <div className="relative flex items-center hidden lg:flex cursor-pointer">
                                 <FaShoppingCart className="text-tertiary text-3xl" />
                                 <span className="absolute -top-2 -right-2 bg-primary text-white text-sm font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                    {cartItems.length}
+                                    {countCartItems}
                                 </span>
                             </div>
                          </Link>   
@@ -108,16 +188,7 @@ const Header = () => {
                     </div>
                 )
             }
-
-            {/* Overlay */}
-            {/* {isDrawerOpen && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40"
-                    onClick={toggleDrawer}
-                ></div>
-            )} */}
         </>
   )
 }
-
-export default Header
+export default Header;

@@ -11,7 +11,7 @@ const Footer = () => {
                 <div className="col-span-4 flex flex-col gap-4">
                     <Link to='/' className="flex items-center space-x-2 cursor-pointer">
                       <span className='h-4 w-4 rounded-full bg-primary'></span>
-                      <h1 className='text-5xl text-primary font-semibold font-montserrat'>AgroShop</h1>
+                      <h1 className='text-5xl text-primary font-semibold font-montserrat'>AgriMarket</h1>
                     </Link>
                     <p className='font-montserrat sm:text-lg text-sm text-white '>AgroShop est une plateforme de vente en ligne de produits agricoles.</p>
                 </div>
@@ -64,7 +64,7 @@ const Footer = () => {
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaFacebook className='text-white' />
-                                <span>AgroShop</span>
+                                <span>AgriMarket</span>
                               </span>
                             </a>
                           </li>
@@ -106,7 +106,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <small className='text-white text-center font-light font-montserrat sm:text-base text-sm p-2'>Copyright © 2025 Agroshop All Rights Reserved.</small>
+            <small className='text-white text-center font-light font-montserrat sm:text-base text-sm p-2'>Copyright © 2025 AgriMarket All Rights Reserved.</small>
         </div>
     </footer>
   )
