@@ -249,7 +249,8 @@ export default function ProductList () {
                       id={product._id}
                       name={product.name}
                       image={product.image}
-                      price={product.price}                   
+                      price={product.price}   
+                      stock={product.stock}                
                   />
                 ))
               ) : (

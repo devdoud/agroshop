@@ -5,7 +5,7 @@ import { applyTempUpdate, removeFromCart, updateTempQuantity } from '../features
 import { toast } from 'react-toastify';
 
 
-  const BasketProduct = ({ name, price, image, id, quantity, onRemove }) => {
+  const BasketProduct = ({ name, price, image, id, quantity, onRemove, id_panier }) => {
 
   const [localQuantity, setLocalQuantity] = useState(quantity)
 
@@ -16,7 +16,8 @@ import { toast } from 'react-toastify';
     }
 
     console.log(quantiti)
-  
+    console.log(id)
+
     try {
       const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
       if (!accesstoken) {
@@ -24,17 +25,18 @@ import { toast } from 'react-toastify';
         return;
       }
   
-      const response = await fetch(`http://77.37.54.205:8080/api/cart/update-qty`, {
+      const response = await fetch('http://77.37.54.205:8080/api/cart/update-qty', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
         },
         body: JSON.stringify({
-          _id: id,
+          _id: id_panier,
           qty: quantiti, // Nouvelle quantité
         }),
       });
+
   
       if (!response.ok) {
         throw new Error('Erreur lors de la mise à jour de la quantité.');

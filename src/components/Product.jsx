@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function Product ({ id, name, price, image, })  {
+export default function Product ({ id, name, price, image, stock })  {
 
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -144,9 +144,9 @@ export default function Product ({ id, name, price, image, })  {
                 <div className="flex items-end justify-between mt-1">
                     <div className="flex items-center gap-2 w-2/3">
                         <span className='font-semibold font-montserrat text-base flex items-center gap-1'>
-                            <FaBox className="text-primary" /> Qt :
+                            <FaBox className="text-primary" /> Stock :
                         </span>
-                        <div className="grid grid-cols-3 divide-x-3 divide-solid divide-gray-200 w-1/2 border border-primary rounded-md">
+                        {/* <div className="grid grid-cols-3 divide-x-3 divide-solid divide-gray-200 w-1/2 border border-primary rounded-md">
                             <div className="flex items-center justify-center">
                                 <button onClick={(e) => { e.stopPropagation(); incrementQuantity(); }}>
                                     <FaPlus className="text-primary" />
@@ -160,7 +160,8 @@ export default function Product ({ id, name, price, image, })  {
                                     <FaMinus className={`text-primary ${quantity <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`} />
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
+                        <span className='font-montserrat text-base text-tertiary font-semibold'>{stock}</span>
                     </div>
                     <button
                       className='w-1/3 py-2 border-gray-200 border rounded-lg flex items-center justify-center gap-4 bg-primary text-white cursor-pointer'

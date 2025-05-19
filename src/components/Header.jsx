@@ -91,10 +91,6 @@ const Header = ({ searchQuery, setSearchQuery }) => {
             <header className='grid grid-cols-12  bg-white shadow-md h-24 fixed left-0 right-0 top-0 z-50'>
                 <div className="col-span-10 col-start-2 flex items-center grid grid-cols-10">
                     
-                    {/* <div className="flex items-center justify-center space-x-2 col-span-1">
-                        <span className='h-2.5 w-2.5 rounded-full bg-primary'></span>
-                        <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgroShop</h1>
-                    </div> */}
                     <div className="flex items-center justify-center space-x-2 col-span-1">
                         {/* Icône hamburger visible sur petits écrans */}
                         <FaBars className="text-primary text-2xl block lg:hidden" onClick={toggleDrawer} />
@@ -118,7 +114,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                         <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary" />
                     </div>
                     <div className="col-span-4 col-start-9 flex items-center justify-between">
-                        <div className="flex items-center space-x-8 w-full">
+                        <div className="flex items-center space-x-6 w-full">
                             <Link to='/login' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
                                 <FaUser className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Connexion</span>
@@ -127,7 +123,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                                 <FaUserPlus className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Inscription</span>
                             </Link> */}
-                            <Link to={'/dashboard'} className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>Dashboard</Link>
+                            <Link to={'/signup'} className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>Inscription</Link>
                         </div>
                          <Link to='/cart'>
                             <div className="relative flex items-center hidden lg:flex cursor-pointer">

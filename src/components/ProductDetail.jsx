@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { addToCart } from '../features/shopCarts/cartSlice';
+import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
@@ -47,7 +46,19 @@ const ProductDetail = () => {
 )
 
 if (isLoading) {
-  return <p>Chargement...</p>;
+  return (
+    <div className='flex items-center mt-14 gap-10 mx-14 mt-40 rounded-lg'>
+        <div className="h-2/3 w-2/5">
+            <Skeleton height={240} className="rounded-lg" />
+        </div>
+        <div className="flex flex-col w-3/5 gap-4">    
+          <Skeleton height={20} width="30%" className="rounded-lg" />
+          <Skeleton height={25} width="50%" className="rounded-lg" />
+          <Skeleton height={20} width="15%" className="rounded-lg" />
+          <Skeleton height={40} width="30%" className="rounded-lg" />
+        </div>
+    </div>
+  );
 }
 
 
@@ -62,10 +73,6 @@ return (
             {/* product informations and add to basket button */}
             <div className="col-span-3 flex flex-col justify-start items-start gap-8">
                 <h3 className='text-terrtiary font-bold text-2xl font-montserrat'>{product.name}</h3>
-                {/* <p className='text-tertiary font-medium text-lg font-montserrat'> 
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum commodi soluta, blanditiis eos, aperiam libero ad facilis tempore cum eligendi natus nisi nemo voluptatibus vitae a nesciunt delectus laudantium mollitia!
-                    Optio beatae dicta voluptate laboriosam quas aspernatur quibusdam, ullam maiores, eos ea exercitationem asperiores, a eius fuga. Mollitia cupiditate adipisci veritatis aspernatur, nesciunt enim aperiam laboriosam voluptate sapiente placeat provident. 
-                </p> */}
                 <p className='text-tertiary font-medium text-lg font-montserrat'> 
                     { product.description }
                 </p>

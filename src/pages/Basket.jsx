@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router";
 import BasketProduct from '../components/BasketProduct'
 import { toast } from 'react-toastify';
+import { FedaCheckoutButton, FedaCheckoutContainer } from 'fedapay-reactjs';
 
 
 const Basket = () => {
     const [cartProduct, setCartProducts] = useState([])
 
     let navigate = useNavigate();
+
+    const PUBLIC_KEY = import.meta.env.VITE_PAYMENT_PUBLIC_KEY;
 
     useEffect(()=>{
         const fetchCartProducts = async () => {
@@ -78,91 +81,149 @@ const Basket = () => {
       };
 
 
-      const handleCheckout = async () => {
-        try {
-          const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
-          if (!accesstoken) {
-            toast.error('Vous devez être connecté pour passer à la caisse.');
-            return;
+      // const handleCheckout = async () => {
+      //   try {
+      //     const accesstoken = localStorage.getItem('accesstoken'); // Récupérer le token d'accès
+      //     if (!accesstoken) {
+      //       toast.error('Vous devez être connecté pour passer à la caisse.');
+      //       return;
+      //     }
+      
+      //     // Préparer les données pour l'API
+      //     const list_items = cartProduct.map((item) => ({
+      //       productId: item.productId._id,
+      //       name: item.productId.name,
+      //       price: item.productId.price,
+      //       quantity: item.quantity,
+      //     }));
+      
+      //     const subtotal_amount = list_items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      //     const total_amount = subtotal_amount; // Ajoutez des frais supplémentaires si nécessaire
+      
+      //     const body = {
+      //       list_items,
+      //       subtotal_amount,
+      //       total_amount,
+      //     };
+      
+      //     console.log('Données envoyées pour le paiement :', body);
+      
+      //     // Initialiser le paiement avec FedaPay
+      //     FedaPay.init({
+      //       public_key: PUBLIC_KEY, // Utilisez votre clé publique FedaPay
+      //       transaction: {
+      //         amount: total_amount, // Montant total
+      //         currency: 'XOF', // Devise
+      //       },
+      //       customer: {
+      //         firstname: 'John', // Remplacez par les données utilisateur
+      //         lastname: 'Doe',
+      //         email: 'user@example.com',
+      //       },
+      //       onComplete: async (response) => {
+      //         console.log('Réponse du paiement :', response);
+      
+      //         // Vérifiez si le paiement a réussi
+      //         if (response.status === 'approved') {
+      //           // Envoyer la requête à l'API backend pour finaliser le paiement
+      //           const apiResponse = await fetch('http://77.37.54.205:8080/api/order/checkout', {
+      //             method: 'POST',
+      //             headers: {
+      //               'Content-Type': 'application/json',
+      //               'Authorization': `Bearer ${accesstoken}`,
+      //             },
+      //             body: JSON.stringify({
+      //               ...body,
+      //               paymentReference: response.transaction_id, // Référence du paiement
+      //             }),
+      //           });
+      
+      //           if (!apiResponse.ok) {
+      //             throw new Error(`Erreur lors du paiement : ${apiResponse.statusText}`);
+      //           }
+      
+      //           const data = await apiResponse.json();
+      //           console.log('Réponse de l\'API de paiement :', data);
+      
+      //           toast.success('Paiement effectué avec succès !');
+      //           navigate('/confirmation'); // Rediriger vers une page de confirmation
+      //         } else {
+      //           toast.error('Le paiement a échoué.');
+      //         }
+      //       },
+      //       onCancel: () => {
+      //         console.log('Paiement annulé par l\'utilisateur.');
+      //         toast.error('Paiement annulé.');
+      //       },
+      //       onError: (error) => {
+      //         console.error('Erreur lors du paiement :', error);
+      //         toast.error('Une erreur est survenue lors du paiement.');
+      //       },
+      //     });
+      
+      //     FedaPay.open(); // Ouvrir l'interface de paiement
+      //   } catch (error) {
+      //     console.error('Erreur lors du paiement :', error);
+      //     toast.error('Une erreur est survenue lors du paiement.');
+      //   }
+      // };
+
+      const subtotal_amount = cartProduct.reduce(
+        (sum, item) => sum + item.productId.price * item.quantity,
+        0
+      );
+
+      console.log('Montant total du panier :', subtotal_amount);
+      
+      const checkoutButtonOptions = {
+        public_key: PUBLIC_KEY,
+        transaction: {
+          amount: subtotal_amount * 100, // Montant en centimes
+          description: 'Paiement de votre panier',
+        },
+        currency: {
+          iso: 'XOF',
+        },
+        button: {
+          class: 'font-montserrat font-medium text-white bg-primary rounded-md py-2 mt-8 cursor-pointer focus:border-none',
+          text: `Payer ${subtotal_amount} FCFA`,
+        },
+        onComplete: async (resp) => {
+          const FedaPay = window['FedaPay'];
+          if (resp.reason === FedaPay.DIALOG_DISMISSED) {
+            toast.error('Vous avez fermé la boîte de dialogue.');
+          } else {
+            toast.success('Paiement effectué avec succès !');
+            console.log('Transaction terminée :', resp.transaction);
+    
+            // Envoyer la requête au backend pour finaliser la commande
+            const accesstoken = localStorage.getItem('accesstoken');
+            const response = await fetch('http://77.37.54.205:8080/api/order/checkout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accesstoken}`,
+              },
+              body: JSON.stringify({
+                list_items: cartProduct.map((item) => ({
+                  productId: item.productId._id,
+                  name: item.productId.name,
+                  price: item.productId.price,
+                  quantity: item.quantity,
+                })),
+                subtotal_amount,
+                total_amount: subtotal_amount,
+                paymentReference: resp.transaction.id,
+              }),
+            });
+    
+            if (!response.ok) {
+              throw new Error('Erreur lors de la finalisation de la commande.');
+            }
+    
+            navigate('/confirmation');
           }
-      
-          // Préparer les données pour l'API
-          const list_items = cartProduct.map((item) => ({
-            productId: item.productId._id,
-            name: item.productId.name,
-            price: item.productId.price,
-            quantity: item.quantity,
-          }));
-      
-          const subtotal_amount = list_items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          const total_amount = subtotal_amount; // Ajoutez des frais supplémentaires si nécessaire
-      
-          const body = {
-            list_items,
-            subtotal_amount,
-            total_amount,
-          };
-      
-          console.log('Données envoyées pour le paiement :', body);
-      
-          // Initialiser le paiement avec FedaPay
-          FedaPay.init({
-            public_key: PUBLIC_KEY, // Utilisez votre clé publique FedaPay
-            transaction: {
-              amount: total_amount, // Montant total
-              currency: 'XOF', // Devise
-            },
-            customer: {
-              firstname: 'John', // Remplacez par les données utilisateur
-              lastname: 'Doe',
-              email: 'user@example.com',
-            },
-            onComplete: async (response) => {
-              console.log('Réponse du paiement :', response);
-      
-              // Vérifiez si le paiement a réussi
-              if (response.status === 'approved') {
-                // Envoyer la requête à l'API backend pour finaliser le paiement
-                const apiResponse = await fetch('http://77.37.54.205:8080/api/order/checkout', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accesstoken}`,
-                  },
-                  body: JSON.stringify({
-                    ...body,
-                    paymentReference: response.transaction_id, // Référence du paiement
-                  }),
-                });
-      
-                if (!apiResponse.ok) {
-                  throw new Error(`Erreur lors du paiement : ${apiResponse.statusText}`);
-                }
-      
-                const data = await apiResponse.json();
-                console.log('Réponse de l\'API de paiement :', data);
-      
-                toast.success('Paiement effectué avec succès !');
-                navigate('/confirmation'); // Rediriger vers une page de confirmation
-              } else {
-                toast.error('Le paiement a échoué.');
-              }
-            },
-            onCancel: () => {
-              console.log('Paiement annulé par l\'utilisateur.');
-              toast.error('Paiement annulé.');
-            },
-            onError: (error) => {
-              console.error('Erreur lors du paiement :', error);
-              toast.error('Une erreur est survenue lors du paiement.');
-            },
-          });
-      
-          FedaPay.open(); // Ouvrir l'interface de paiement
-        } catch (error) {
-          console.error('Erreur lors du paiement :', error);
-          toast.error('Une erreur est survenue lors du paiement.');
-        }
+        },
       };
 
   return (
@@ -217,10 +278,11 @@ const Basket = () => {
                             <input type="checkbox" />
                             Ramassage au magasin
                         </label>
-                        <button
+                        {/* <button
                             className='font-montserrat font-medium text-white bg-primary rounded-md py-2 mt-8 cursor-pointer focus:border-none'
                             onClick={handleCheckout}
-                        >Passer à la caisse</button>
+                        >Passer à la caisse</button> */}
+                        <FedaCheckoutButton options={checkoutButtonOptions} />
                     </div>
                 </section>
             </div>
