@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, } from 'react-router'
 import './index.css'
-import App from './App.jsx'
 import Signup from './components/Signup.jsx'
 import Login from './components/Login.jsx'
 import Header from './components/Header.jsx'
@@ -12,13 +11,10 @@ import ForgotPassword from './components/ForgotPassword.jsx'
 import ForgotPasswordOtpVerification from './components/ForgotPasswordOtpVerification.jsx'
 import ResetPassword from './components/ResetPassword.jsx'
 import Basket from './pages/Basket.jsx'
-import store from './app/store'
-import Dashboard from './pages/Dashboard.jsx'
 import Layout from './components/Layout.jsx'
 import BasketLayout from './components/BasketLayout.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { SearchProvider } from './context/SearchContext.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -39,7 +35,6 @@ createRoot(document.getElementById('root')).render(
                   <Route path="/forgotpasswordotp" element={<ForgotPasswordOtpVerification />} />
                   <Route path="/resetpassword" element={<ResetPassword />} />
                 </Route>   
-                <Route path='/dashboard' element={<Dashboard />} />
               </Routes>
         </BrowserRouter>
   </StrictMode>

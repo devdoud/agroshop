@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaEnvelope, FaMapMarkerAlt, FaPhone, FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { Link } from "react-router";
-import { FaX } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
@@ -11,28 +10,11 @@ const Footer = () => {
                 <div className="col-span-4 flex flex-col gap-4">
                     <Link to='/' className="flex items-center space-x-2 cursor-pointer">
                       <span className='h-4 w-4 rounded-full bg-primary'></span>
-                      <h1 className='text-5xl text-primary font-semibold font-montserrat'>AgriMarket</h1>
+                      <h1 className='text-5xl text-primary font-semibold font-montserrat'>FermierConnect</h1>
                     </Link>
                     <p className='font-montserrat sm:text-lg text-sm text-white '>AgroShop est une plateforme de vente en ligne de produits agricoles.</p>
                 </div>
                 <div className="col-span-8 sm:col-start-7 flex sm:flex-row flex-col space-y-8 sm:items-start sm:justify-between">
-                    {/* les liens rapides  */}
-                    {/* <div className="">
-                      <h1 className='font-montserrat font-bold text-2xl'>LIENS RAPIDES</h1>
-                      <ul className='mt-8 flex flex-col space-y-2'>
-                          <li className='font-montserrat font-medium text-xl'>
-                            <a href="#">Accueil</a>
-                          </li>
-                          <li className='font-montserrat font-medium text-xl'>
-                            <a href="#">Produits</a>
-                          </li>
-                          <li className='font-montserrat font-medium text-xl'>
-                            <a href="#">Panier</a>
-                          </li>
-                      </ul>
-                    </div> */}
-
-                    {/* nos differents contacts */}
                     <div className="">
                       <h1 className='font-montserrat font-semibold text-2xl'>CONTACTS</h1>
                       <ul className='mt-4 sm:mt-8 flex flex-col space-y-2'>

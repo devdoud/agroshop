@@ -43,12 +43,6 @@ const handleChange = (e) => {
   });
 };
   
-  // const handlePhoneChange = (value) => {
-  //   setFormData({
-  //     ...formData,
-  //     phone: value
-  //   });
-  // };
 
   const validate = () => {
     const newErrors = {};
@@ -92,7 +86,7 @@ const handleChange = (e) => {
           ...formData,
           mobile: formData.mobile // Assurez-vous que mobile est un nombre
         };
-        const response = await fetch('http://77.37.54.205:8080/api/user/register', {
+        const response = await fetch('api.fermierconnect.com:8080/api/user/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

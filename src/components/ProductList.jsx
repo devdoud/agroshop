@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import { SearchContext } from '../context/SearchContext';
-// import { useNavigate } from 'react-router';
 import { Link, useOutletContext } from 'react-router-dom';
 import Product from './product';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -17,37 +15,11 @@ export default function ProductList () {
   const [filteredProducts, setFilteredProducts] = useState([]); // Produits filtrés par catégorie
   // const navigate = useNavigate();
   
-  
-  // Récupérer les produits depuis l'API
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch('http://77.37.54.205:8080/api/product/get',
-  //         {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //             // 'Authorization': `Bearer ${token}` // Si vous avez besoin d'un token d'authentification
-  //           },
-  //         }
-  //       ); 
-        
-  //       const data = await response.json();
-  //       console.log("Data from API", data.data);
-  //       setProducts(data.data || []);
-  //       // setFilteredProducts(data); // Par défaut, afficher tous les produits
-  //     } catch (error) {
-  //       console.error('Erreur lors de la récupération des produits :', error);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try { 
-        const response = await fetch('http://77.37.54.205:8080/api/category/get', {
+        const response = await fetch('api.fermierconnect.com:8080/api/category/get', {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -68,7 +40,7 @@ export default function ProductList () {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = 'http://77.37.54.205:8080/api/product/get';
+        let url = 'api.fermierconnect.com:8080/api/product/get';
         let body;
         const selectedCategoryObject = category.find(
           (categorie) => categorie.name === selectedCategory
@@ -79,7 +51,7 @@ export default function ProductList () {
   
         // Si une catégorie spécifique est sélectionnée, utilisez l'endpoint "get-product-by-category"
         if (selectedCategory !== 'Tout') {
-          url = 'http://77.37.54.205:8080/api/product/get-product-by-category';       
+          url = 'api.fermierconnect.com:8080/api/product/get-product-by-category';       
           body = JSON.stringify(
             {id: id_categorie}
           )
@@ -124,23 +96,6 @@ export default function ProductList () {
 
   }, [searchQuery, products]);
 
-  // Filtrer les produits en fonction de la catégorie et de la recherche
-  // useEffect(() => {
-  //   let filtered = products;
-
-  //   if (selectedCategory !== 'Tous') {
-  //     filtered = filtered.filter(product => product.category === selectedCategory);
-  //   }
-
-  //   if (searchQuery.trim() !== '') {
-  //     filtered = filtered.filter(product =>
-  //       product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  //     );
-  //   }
-
-  //   setFilteredProducts(filtered);
-  // }, [selectedCategory, searchQuery, products]);
-
   
   const handleNext = () => {
     if (visibleCategories + 3 < category.length) {
@@ -153,14 +108,6 @@ export default function ProductList () {
       setVisibleCategories(visibleCategories - 1);
     }
   };
-
-  // const handleProductClick = (productId) => {
-  //   navigate(`/detailproduit/${productId}`);
-  // };
-
-  // const handleProductClick = (productId) => {
-  //   console.log("Navigate to the product detail page", productId);
-  // };
 
   return (
     <div className="grid grid-cols-12 mt-36">
@@ -237,13 +184,6 @@ export default function ProductList () {
             {
               products.length > 0 ? (
                 filteredProducts.map(product => (
-                  // <Link to={`/detailproduit/${product._id}`} key={product._id}>
-                  //   <Product
-                  //     name={product.name}
-                  //     image={product.image}
-                  //     price={product.price}                   
-                  //   />
-                  // </Link>
                   <Product
                       key={product._id}
                       id={product._id}

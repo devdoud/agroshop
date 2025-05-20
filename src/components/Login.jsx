@@ -63,7 +63,7 @@ const validate = (values) => {
       setIsSubmitting(true);
       setErrorMessage('');
       try {
-        const response = await fetch('http://77.37.54.205:8080/api/user/login', {
+        const response = await fetch('api.fermierconnect.com:8080/api/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -78,7 +78,6 @@ const validate = (values) => {
 
         // Stocker le token dans le localStorage ou le sessionStorage
         localStorage.setItem('accesstoken', data.data.accesstoken);
-        console.log('Token stocké dans localStorage :', localStorage.getItem('accesstoken'));
 
         toast.success('Connexion réussie !')
         navigate('/'); // Redirige vers la page de connexion

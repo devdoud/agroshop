@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { FaMinusCircle, FaPlusCircle, FaBookmark, FaTrash, FaCheck } from 'react-icons/fa';
-import { applyTempUpdate, removeFromCart, updateTempQuantity } from '../features/shopCarts/cartSlice';
+import { applyTempUpdate } from '../features/shopCarts/cartSlice';
 import { toast } from 'react-toastify';
 
 
@@ -25,7 +25,7 @@ import { toast } from 'react-toastify';
         return;
       }
   
-      const response = await fetch('http://77.37.54.205:8080/api/cart/update-qty', {
+      const response = await fetch('api.fermierconnect.com:8080/api/cart/update-qty', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router'
-// import { SearchContext } from '../context/SearchContext';
 import { FaSearch, FaShoppingCart, FaBars, FaUser, FaUserPlus, FaTimes } from 'react-icons/fa';
 
 const Header = ({ searchQuery, setSearchQuery }) => {
@@ -24,7 +23,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                 throw new Error('Vous devez être connecté pour voir votre panier.');
               }
         
-              const response = await fetch('http://77.37.54.205:8080/api/cart/get', {
+              const response = await fetch('api.fermierconnect.com:8080/api/cart/get', {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -53,7 +52,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
         }
       
         try {
-          const response = await fetch('http://77.37.54.205:8080/api/product/search-product', {
+          const response = await fetch('api.fermierconnect.com:8080/api/product/search-product', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -69,9 +68,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
       
           const data = await response.json();
           console.log('Résultats de la recherche :', data.data);
-      
-          // Rediriger ou afficher les résultats
-          // Exemple : navigate(`/search-results`, { state: { results: data.data } });
+
         } catch (error) {
           console.error('Erreur lors de la recherche :', error);
           toast.error('Une erreur est survenue lors de la recherche.');
@@ -98,7 +95,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                         <Link to='/'>
                             <div className="hidden lg:flex items-center space-x-2">
                                 <span className='h-2.5 w-2.5 rounded-full bg-primary'></span>
-                                <h1 className='text-2xl text-primary font-semibold font-montserrat'>AgriMarket</h1>
+                                <h1 className='text-2xl text-primary font-semibold font-montserrat'>FermierConnect</h1>
                             </div>
                         </Link>
                     </div>
@@ -119,10 +116,6 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                                 <FaUser className="text-primary text-xl flex lg:hidden" />
                                 <span className='hidden lg:flex'>Connexion</span>
                             </Link>
-                            {/* <Link to='/signup' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
-                                <FaUserPlus className="text-primary text-xl flex lg:hidden" />
-                                <span className='hidden lg:flex'>Inscription</span>
-                            </Link> */}
                             <Link to={'/signup'} className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>Inscription</Link>
                         </div>
                          <Link to='/cart'>

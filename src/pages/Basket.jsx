@@ -21,7 +21,7 @@ const Basket = () => {
                 throw new Error('Vous devez être connecté pour voir votre panier.');
               }
         
-              const response = await fetch('http://77.37.54.205:8080/api/cart/get', {
+              const response = await fetch('api.fermierconnect.com:8080/api/cart/get', {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -32,9 +32,7 @@ const Basket = () => {
               if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des produits du panier.');
               }
-        
-              const data = await response.json();
-              console.log('Produits du panier récupérés :', data);
+              
               setCartProducts(data.data || []); // Mettre à jour l'état avec les produits récupérés
             } catch (error) {
               console.error('Erreur lors de la récupération des produits du panier :', error);
@@ -51,7 +49,7 @@ const Basket = () => {
             return;
           }
       
-          const response = await fetch(`http://77.37.54.205:8080/api/cart/delete-cart-item`, {
+          const response = await fetch(`api.fermierconnect.com:8080/api/cart/delete-cart-item`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -67,9 +65,6 @@ const Basket = () => {
           if (!response.ok) {
             throw new Error(`Erreur lors de la suppression du produit : ${responseText}`);
           }
-      
-          const data = JSON.parse(responseText);
-          console.log('Produit supprimé avec succès :', data);
 
           setCartProducts( (prevCartProducts) => prevCartProducts.filter((item) => item._id !== id) )
       
@@ -126,7 +121,7 @@ const Basket = () => {
       //         // Vérifiez si le paiement a réussi
       //         if (response.status === 'approved') {
       //           // Envoyer la requête à l'API backend pour finaliser le paiement
-      //           const apiResponse = await fetch('http://77.37.54.205:8080/api/order/checkout', {
+      //           const apiResponse = await fetch('api.fermierconnect.com:8080/api/order/checkout', {
       //             method: 'POST',
       //             headers: {
       //               'Content-Type': 'application/json',
@@ -172,8 +167,6 @@ const Basket = () => {
         (sum, item) => sum + item.productId.price * item.quantity,
         0
       );
-
-      console.log('Montant total du panier :', subtotal_amount);
       
       const checkoutButtonOptions = {
         public_key: PUBLIC_KEY,
@@ -198,7 +191,7 @@ const Basket = () => {
     
             // Envoyer la requête au backend pour finaliser la commande
             const accesstoken = localStorage.getItem('accesstoken');
-            const response = await fetch('http://77.37.54.205:8080/api/order/checkout', {
+            const response = await fetch('api.fermierconnect.com:8080/api/order/checkout', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -234,8 +227,6 @@ const Basket = () => {
 
                 <section className='mt-[38px] flex mb-[100px] gap-8 sm:flex-row flex-col'>
                     <div className="bg-[#F0F2F4] flex-1 px-[12px] py-[13px] flex flex-col gap-[13px]">
-                        {/* <BasketProduct name={'Arachide'} price={'$29.99'} />
-                        <BasketProduct name={'Granut'} price={'$30'} /> */}
                         {
                             cartProduct.length === 0 ? 
                             (
