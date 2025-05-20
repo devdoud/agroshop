@@ -23,7 +23,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                 throw new Error('Vous devez être connecté pour voir votre panier.');
               }
         
-              const response = await fetch('api.fermierconnect.com:8080/api/cart/get', {
+              const response = await fetch('https://api.fermierconnect.com/api/cart/get', {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',

@@ -63,7 +63,7 @@ const validate = (values) => {
       setIsSubmitting(true);
       setErrorMessage('');
       try {
-        const response = await fetch('api.fermierconnect.com:8080/api/user/login', {
+        const response = await fetch('https://api.fermierconnect.com/api/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ const validate = (values) => {
   // Ici se trouve le code de la page de connexion
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 mt-8">
-        <div className="bg-[url(src/assets/cantsco.jpg)] bg-cover bg-no-repeat" ></div>
+        <div className="bg-[url(/assets/cantsco.jpg)] bg-cover bg-no-repeat" ></div>
         <div className="overflow-hidden">
             <div className="sm:w-2/4 h-screen w-3/4 flex flex-col align-center justify-center mx-auto">
                 <h1 className='text-3xl font-semibold font-montserrat text-tertiarry text-center'>Connexion Page</h1>

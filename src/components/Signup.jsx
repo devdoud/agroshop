@@ -86,7 +86,7 @@ const handleChange = (e) => {
           ...formData,
           mobile: formData.mobile // Assurez-vous que mobile est un nombre
         };
-        const response = await fetch('api.fermierconnect.com:8080/api/user/register', {
+        const response = await fetch('https://api.fermierconnect.com/api/user/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -165,7 +165,7 @@ const handleChange = (e) => {
     return (
         <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 mt-8 ">
-                <div className="bg-[url(src/assets/agriasso.jpg)] bg-cover bg-no-repeat"></div>
+                <div className="bg-[url(/assets/agriasso.jpg)] bg-cover bg-no-repeat"></div>
                 <div className="">
                     <div className="sm:w-2/4 w-3/4 h-screen flex flex-col item-center justify-center mx-auto mt-26 mb-10">
                         <h1 className='text-3xl font-medium font-montserrat text-tertiarry text-center'>Inscription Page</h1>

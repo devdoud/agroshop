@@ -14,7 +14,7 @@ const ForgotPasswordOtpVerification = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('api.fermierconnect.com:8080/api/user/verify-forgot-password-otp', {
+      const response = await fetch('https://api.fermierconnect.com/api/user/verify-forgot-password-otp', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchProduct = async () => {
           try {
-              const response = await fetch('api.fermierconnect.com:8080/product/get-product-details',
+              const response = await fetch('https://api.fermierconnect.com/product/get-product-details',
                 {
                   method: 'POST',
                   mode: 'cors',

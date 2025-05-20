@@ -21,7 +21,7 @@ const ResetPassword = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('api.fermierconnect.com:8080/api/user/reset-password', {
+      const response = await fetch('https://api.fermierconnect.com/api/user/reset-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
