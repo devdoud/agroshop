@@ -7,7 +7,7 @@ export default function ProductList () {
   // const { searchQuery } = useContext(SearchContext);
   const { searchQuery } = useOutletContext();
   const [visibleCategories, setVisibleCategories] = useState(0); // Index de la première catégorie visible
-  const [selectedCategory, setSelectedCategory] = useState('Tout'); // Catégorie sélectionnée
+  const [selectedCategory, setSelectedCategory] = useState('Tous'); // Catégorie sélectionnée
   const [products, setProducts] = useState([]); // Liste des produits récupérés depuis l'API
 
   // const categories = ['Tout', 'cereale', 'Légumineuses', 'Tubercules', 'Fruits'];
@@ -28,6 +28,7 @@ export default function ProductList () {
         });
         const data = await response.json();
         console.log('Data from API:', data.data);
+        data.data.unshift({ _id: 'Tous', name: 'Tous' }); // Ajouter la catégorie "Tout" au début du tableau
         setCategory(data.data || []);
       } catch (error) {
         console.error('Erreur lors de la récupération des catégories :', error);
@@ -50,7 +51,7 @@ export default function ProductList () {
         console.log('is selected:', id_categorie)
   
         // Si une catégorie spécifique est sélectionnée, utilisez l'endpoint "get-product-by-category"
-        if (selectedCategory !== 'Tout') {
+        if (selectedCategory !== 'Tous') {
           url = 'https://api.fermierconnect.com/api/product/get-product-by-category';       
           body = JSON.stringify(
             {id: id_categorie}

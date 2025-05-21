@@ -191,7 +191,7 @@ const Basket = () => {
     
             // Envoyer la requête au backend pour finaliser la commande
             const accesstoken = localStorage.getItem('accesstoken');
-            const response = await fetch('api.fermierconnect.com:8080/api/order/checkout', {
+            const response = await fetch('https://api.fermierconnect.com/api/order/checkout', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

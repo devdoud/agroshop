@@ -88,7 +88,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
             <header className='grid grid-cols-12  bg-white shadow-md h-24 fixed left-0 right-0 top-0 z-50'>
                 <div className="col-span-10 col-start-2 flex items-center grid grid-cols-10">
                     
-                    <div className="flex items-center justify-center space-x-2 col-span-1">
+                    <div className="flex items-center justify-between justify-center space-x-2 col-span-1">
                         {/* Icône hamburger visible sur petits écrans */}
                         <FaBars className="text-primary text-2xl block lg:hidden" onClick={toggleDrawer} />
                         {/* Logo visible sur grands écrans */}
@@ -99,27 +99,27 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                             </div>
                         </Link>
                     </div>
-                    <div className="h-12 col-span-4 col-start-4 relative">
+                    <div className="h-12 col-span-4 col-start-4 relative hidden lg:flex">
                         <input 
                             type="text" 
                             placeholder='Rechercher un produit'
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onKeyDown={handleKeyDown}
-                            className='w-full h-full bg-transparent rounded-full border-primary border-2 outline-none sm:pl-10 pl-8 py-4 font-montserrat font-semibold text-tertiary sm:text-md text-sm'
+                            className='w-full h-full hidden sm:block bg-transparent rounded-full border-primary border-2 outline-none sm:pl-10 pl-8 py-4 font-montserrat font-semibold text-tertiary sm:text-md text-sm'
                         />
                         <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary" />
                     </div>
-                    <div className="col-span-4 col-start-9 flex items-center justify-between">
+                    <div className="col-span-4 col-start-9 flex items-center space-x-3 ">
                         <div className="flex items-center space-x-6 w-full">
                             <Link to='/login' className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>
-                                <FaUser className="text-primary text-xl flex lg:hidden" />
+                                <FaUser className="text-primary text-xl flex lg:hidden h-6 w-6" />
                                 <span className='hidden lg:flex'>Connexion</span>
                             </Link>
-                            <Link to={'/signup'} className='text-tertiary font-montserrat font-semibold sm:text-lg text-sm flex items-center'>Inscription</Link>
+                            <Link to={'/signup'} className='text-tertiary font-montserrat hidden sm:block font-semibold sm:text-lg text-sm flex items-center'>Inscription</Link>
                         </div>
                          <Link to='/cart'>
-                            <div className="relative flex items-center hidden lg:flex cursor-pointer">
+                            <div className="relative flex items-center flex cursor-pointer">
                                 <FaShoppingCart className="text-tertiary text-3xl" />
                                 <span className="absolute -top-2 -right-2 bg-primary text-white text-sm font-bold rounded-full h-5 w-5 flex items-center justify-center">
                                     {countCartItems}

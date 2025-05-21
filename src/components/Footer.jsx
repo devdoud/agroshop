@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className="col-span-4 flex flex-col gap-4">
                     <Link to='/' className="flex items-center space-x-2 cursor-pointer">
                       <span className='h-4 w-4 rounded-full bg-primary'></span>
-                      <h1 className='text-5xl text-primary font-semibold font-montserrat'>FermierConnect</h1>
+                      <h1 className='text-4xl text-primary font-semibold font-montserrat'>FermierConnect</h1>
                     </Link>
                     <p className='font-montserrat sm:text-lg text-sm text-white '>AgroShop est une plateforme de vente en ligne de produits agricoles.</p>
                 </div>
