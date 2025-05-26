@@ -18,7 +18,20 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchProduct = async () => {
           try {
-              const response = await fetch('https://api.fermierconnect.com/product/get-product-details',
+              // const response = await fetch('https://api.fermierconnect.com/product/get-product-details',
+              //   {
+              //     method: 'POST',
+              //     mode: 'cors',
+              //     headers: {
+              //       'Content-Type': 'application/json',
+              //     },
+              //     body: JSON.stringify(
+              //       {productId: id}
+              //     )
+              //   }
+              // );
+
+              const response = await fetch('https://77.37.54.205:8080/product/get-product-details',
                 {
                   method: 'POST',
                   mode: 'cors',
