@@ -19,7 +19,14 @@ export default function ProductList () {
   useEffect(() => {
     const fetchCategories = async () => {
       try { 
-        const response = await fetch('https://api.fermierconnect.com/api/category/get', {
+        // const response = await fetch('https://api.fermierconnect.com/api/category/get', {
+        //   method: 'GET',
+        //   mode: 'cors',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        // });
+        const response = await fetch('http://77.37.54.205:8080/api/category/get', {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -41,7 +48,8 @@ export default function ProductList () {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = 'https://api.fermierconnect.com/api/product/get';
+        // let url = 'https://api.fermierconnect.com/api/product/get';
+        let url = 'http://77.37.54.205:8080/api/product/get';
         let body;
         const selectedCategoryObject = category.find(
           (categorie) => categorie.name === selectedCategory
@@ -52,7 +60,8 @@ export default function ProductList () {
   
         // Si une catégorie spécifique est sélectionnée, utilisez l'endpoint "get-product-by-category"
         if (selectedCategory !== 'Tous') {
-          url = 'https://api.fermierconnect.com/api/product/get-product-by-category';       
+          // url = 'https://api.fermierconnect.com/api/product/get-product-by-category';       
+          url = 'http://77.37.54.205:8080/api/product/get-product-by-category';   
           body = JSON.stringify(
             {id: id_categorie}
           )

@@ -63,12 +63,19 @@ const validate = (values) => {
       setIsSubmitting(true);
       setErrorMessage('');
       try {
-        const response = await fetch('https://api.fermierconnect.com/api/user/login', {
-          method: 'POST',
+        // const response = await fetch('https://api.fermierconnect.com/api/user/login', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify(formData)
+        // });
+        const response = await fetch('http://77.37.54.205:8080/api/category/get', {
+          method: 'GET',
+          mode: 'cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData)
         });
         if (!response.ok) {
           throw new Error('Failed to log in');
@@ -151,7 +158,7 @@ const validate = (values) => {
                                             type="email" 
                                             name="email" 
                                             id="email" 
-                                            placeholder='Adedev@gmail.com'
+                                            placeholder='fermierconnect@gmail.com'
                                             value={formData.email}
                                             onChange={handleChange} 
                                             className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md`}

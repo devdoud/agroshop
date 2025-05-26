@@ -12,7 +12,7 @@ const Footer = () => {
                       <span className='h-4 w-4 rounded-full bg-primary'></span>
                       <h1 className='text-4xl text-primary font-semibold font-montserrat'>FermierConnect</h1>
                     </Link>
-                    <p className='font-montserrat sm:text-lg text-sm text-white '>AgroShop est une plateforme de vente en ligne de produits agricoles.</p>
+                    <p className='font-montserrat sm:text-lg text-sm text-white '>FermierConnect est une plateforme de vente en ligne de produits agricoles.</p>
                 </div>
                 <div className="col-span-8 sm:col-start-7 flex sm:flex-row flex-col space-y-8 sm:items-start sm:justify-between">
                     <div className="">
@@ -30,7 +30,7 @@ const Footer = () => {
                             <a href="#">
                               <span className='flex items-center gap-2'>
                                 <FaEnvelope className='text-white' />
-                                <span>agroshop@gmail.com</span>
+                                <span>fermierconnect@gmail.com</span>
                               </span>
                             </a>
                           </li>
@@ -43,10 +43,10 @@ const Footer = () => {
                             </a>
                           </li>
                           <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">
+                            <a href="https://www.facebook.com/share/18ughhrK4p/">
                               <span className='flex items-center gap-2'>
                                 <FaFacebook className='text-white' />
-                                <span>AgriMarket</span>
+                                <span>FermierConnect</span>
                               </span>
                             </a>
                           </li>
@@ -58,13 +58,13 @@ const Footer = () => {
                       <h1 className='font-montserrat font-semibold text-2xl'>PAGES</h1>
                       <ul className='mt-4 sm:mt-8 flex flex-col space-y-2'>
                           <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">Accueil</a>
+                            <a href="/">Accueil</a>
                           </li>
                           <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">Produits</a>
+                            <a href="/">Produits</a>
                           </li>
                           <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">Panier</a>
+                            <a href="/basket">Panier</a>
                           </li>
                           <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Qui sommes nous?</a>
@@ -78,7 +78,7 @@ const Footer = () => {
                       <h1 className='font-montserrat font-semibold text-2xl'>MENTIONS LEGALES</h1>
                       <ul className='mt-4 sm:mt-8 flex flex-col space-y-2'>
                           <li className='font-montserrat text-lg hover:text-primary'>
-                            <a href="#">Condition generale d'utilisation</a>
+                            <a href="#">Condition générale d'utilisation</a>
                           </li>
                           <li className='font-montserrat text-lg hover:text-primary'>
                             <a href="#">Confidentialité</a>
@@ -88,7 +88,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <small className='text-white text-center font-light font-montserrat sm:text-base text-sm p-2'>Copyright © 2025 AgriMarket All Rights Reserved.</small>
+            <small className='text-white text-center font-light font-montserrat sm:text-base text-sm p-2'>Copyright © 2025 FermierConnect All Rights Reserved.</small>
         </div>
     </footer>
   )

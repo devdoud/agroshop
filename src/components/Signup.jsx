@@ -39,7 +39,8 @@ const handleChange = (e) => {
   const { name, value } = e.target;
   setFormData({
     ...formData,
-    [name]: name === 'mobile' ? Number(value) : value // Convertir en nombre si le champ est "mobile"
+    [name]: value 
+    // [name]: name === 'mobile' ? Number(value) : value // Convertir en nombre si le champ est "mobile"
   });
 };
   
@@ -86,12 +87,19 @@ const handleChange = (e) => {
           ...formData,
           mobile: formData.mobile // Assurez-vous que mobile est un nombre
         };
-        const response = await fetch('https://api.fermierconnect.com/api/user/register', {
-          method: 'POST',
+        // const response = await fetch('https://api.fermierconnect.com/api/user/register', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify(payload)
+        // });
+        const response = await fetch('http://77.37.54.205:8080/api/category/get', {
+          method: 'GET',
+          mode: 'cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(payload)
         });
         if (!response.ok) {
           throw new Error('Failed to sign up');
@@ -252,7 +260,7 @@ const handleChange = (e) => {
                                             type="text" 
                                             name="organization" 
                                             id="organization" 
-                                            placeholder='Agroshop'
+                                            placeholder='fermierconnect'
                                             value={formData.organization}
                                             onChange={handleChange}
                                             className={`mt-1 p-2 sm:p-3 focus:ring-indigo-500 focus:border-primary block w-full shadow-sm sm:text-sm border ${errors.organization ? 'border-red-500' : 'border-gray-300'} rounded-md`} 
@@ -315,7 +323,7 @@ const handleChange = (e) => {
                                           >
                                               <option value="default">-- Sélectionnez un domaine --</option>
                                               <option value="agriculteur">Agriculteur</option>
-                                              <option value="commercant">Commercant</option>
+                                              <option value="commercant">Artisant</option>
                                               <option value="distributeur">Distributeur</option>
                                               <option value="autre">Autre</option>
                                       </select>

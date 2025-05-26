@@ -25,7 +25,19 @@ import { toast } from 'react-toastify';
         return;
       }
   
-      const response = await fetch('api.fermierconnect.com:8080/api/cart/update-qty', {
+      // const response = await fetch('https://api.fermierconnect.com/api/cart/update-qty', {
+      //   method: 'PUT',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${accesstoken}`, // Ajouter le token dans l'en-tête Authorization
+      //   },
+      //   body: JSON.stringify({
+      //     _id: id_panier,
+      //     qty: quantiti, // Nouvelle quantité
+      //   }),
+      // });
+
+      const response = await fetch('http://77.37.54.205:8080/api/cart/update-qty', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +48,6 @@ import { toast } from 'react-toastify';
           qty: quantiti, // Nouvelle quantité
         }),
       });
-
   
       if (!response.ok) {
         throw new Error('Erreur lors de la mise à jour de la quantité.');
